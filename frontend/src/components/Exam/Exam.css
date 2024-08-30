@@ -1,0 +1,167 @@
+/* Exam.css */
+
+/* General layout for the exam wrapper */
+.exam-wrapper {
+    display: flex;
+    justify-content: space-between;
+    padding: 20px;
+    font-family: Arial, sans-serif;
+}
+
+/* Sidebar styling */
+.sidebar {
+    width: 20%;
+    max-height: 80vh;
+    overflow-y: auto;
+    border-right: 2px solid #ccc;
+    padding-right: 10px;
+}
+
+.bullet-item {
+    margin: 5px 0;
+    padding: 10px;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    background-color: #f1f1f1;
+    transition: background-color 0.3s ease;
+}
+
+.bullet-item.on {
+    background-color: #007bff;
+    color: white;
+}
+
+.bullet-item.answered {
+    background-color: #28a745;
+    color: white;
+}
+
+.flag-icon {
+    margin-left: 5px;
+    color: red;
+}
+
+/* Progress Bar Styling */
+.progress-bar {
+    width: 100%;
+    height: 10px;
+    background-color: #f3f3f3;
+    border-radius: 5px;
+    overflow: hidden;
+    margin: 10px 0;
+}
+
+.progress-bar__fill {
+    height: 100%;
+    background-color: #007bff;
+    transition: width 0.3s ease;
+}
+
+/* Timer styling */
+#timer {
+    font-size: 1.2rem;
+    margin-top: 20px;
+    color: #333;
+    font-weight: bold;
+}
+
+/* Exam content styling */
+.exam-content {
+    width: 75%;
+    padding: 0 20px;
+}
+
+#question {
+    margin-bottom: 20px;
+    font-size: 1.2rem;
+}
+
+#answer_btn {
+    display: flex;
+    flex-direction: column;
+}
+
+.btn {
+    background-color: #007bff;
+    color: white;
+    padding: 10px;
+    margin: 5px 0;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1rem;
+    transition: background-color 0.3s ease;
+}
+
+.btn.selected-answer {
+    background-color: #28a745;
+}
+
+.btn:disabled {
+    background-color: #ccc;
+    cursor: not-allowed;
+}
+
+/* Navigation buttons styling */
+#navigation_buttons {
+    margin-top: 20px;
+}
+
+#navigation_buttons button {
+    padding: 10px 15px;
+    border: none;
+    border-radius: 5px;
+    background-color: #007bff;
+    color: white;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+#navigation_buttons button:hover {
+    background-color: #0056b3;
+}
+
+/* Calculator container */
+.calculator-container {
+    margin-top: 20px;
+}
+
+/* Exam results section */
+.exam-results {
+    text-align: center;
+    font-size: 1.2rem;
+}
+
+.wrong-answers {
+    margin-top: 20px;
+}
+
+.wrong-answers h3 {
+    margin-bottom: 10px;
+}
+
+.wrong-answers ul {
+    list-style: none;
+    padding: 0;
+}
+
+.wrong-answers li {
+    margin-bottom: 15px;
+}
+
+.correct {
+    color: #28a745;
+}
+
+.explanation {
+    margin-top: 10px;
+    font-size: 1rem;
+    background-color: #f8f9fa;
+    padding: 10px;
+    border-radius: 5px;
+}

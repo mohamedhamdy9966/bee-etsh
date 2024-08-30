@@ -1,0 +1,64 @@
+/* General Navbar styling */
+.navbar {
+    background-color: #343a40; /* Dark background */
+    padding: 10px 20px;
+}
+
+/* Brand styling */
+.navbar-brand {
+    color: #ffffff; 
+    font-size: 1.5rem;
+    font-weight: bold;
+}
+
+/* Links styling */
+.nav-link {
+    color: #ffffff;
+    font-size: 1.1rem;
+    margin-right: 15px;
+}
+
+.nav-link:hover {
+    color: #f8f9fa; /* Light hover effect */
+    text-decoration: underline;
+}
+
+/* Dropdown menu */
+.navbar-nav .nav-item .dropdown-menu {
+    background-color: #495057; /* Slightly lighter than navbar */
+    border-radius: 5px;
+}
+
+.dropdown-item {
+    color: #ffffff;
+}
+
+.dropdown-item:hover {
+    background-color: #6c757d; /* Darker background on hover */
+    color: #f8f9fa;
+}
+
+/* Navbar collapse button */
+.navbar-toggler {
+    border-color: #ffffff;
+}
+
+.navbar-toggler-icon {
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3E%3Cpath stroke='rgba(255, 255, 255, 1)' stroke-width='2' stroke-linecap='round' stroke-miterlimit='10' d='M4 7h22M4 15h22M4 23h22'/%3E%3C/svg%3E");
+}
+
+/* Collapse animation */
+.collapse.show {
+    transition: height 0.4s ease-in-out;
+}
+
+/* Right-side links */
+.navbar .nav:last-child .nav-link {
+    margin-left: 10px;
+}
+
+.logo {
+    width: 130px; /* Adjust the width */
+    height: auto; /* Maintain the aspect ratio */
+  }
+  
