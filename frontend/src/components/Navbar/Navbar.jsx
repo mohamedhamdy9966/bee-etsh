@@ -11,7 +11,7 @@ function CollapsibleExample() {
     <Navbar collapseOnSelect expand="lg" className="bg-body-tertiary">
       <Container>
         <Navbar.Brand>
-          <img className='logo' src={Logo} alt="Bee etsh logo" />
+          <img className='logo' src={Logo} alt="Pharmaca logo" />
         </Navbar.Brand>
         <Navbar.Toggle aria-controls="responsive-navbar-nav" />
         <Navbar.Collapse id="responsive-navbar-nav">

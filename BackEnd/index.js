@@ -7,6 +7,7 @@ const bcrypt = require("bcryptjs");
 const cors = require("cors");
 const multer = require("multer");
 const path = require("path");
+const { type } = require('os');
 
 const app = express();
 const port = process.env.PORT || 3000;
@@ -18,9 +19,12 @@ app.use(cors());
 
 // Define the Question schema
 const questionSchema = new mongoose.Schema({
+  id: {type: Number, required: true,},
   question: { type: String, required: true },  // The question text
   image: { type: String },  // Optional URL or path to an image associated with the question
   explanation: { type: String },  // Required explanation for the question
+  category: { type: String},
+  date: { type: Date, default: Date.now},
   answers: [
     {
       text: { type: String, required: true },  // The answer text
@@ -33,32 +37,45 @@ const questionSchema = new mongoose.Schema({
 const Question = mongoose.model("Question", questionSchema);
 
 // Endpoint to add a question
-app.post('/question', async (req, res) => {
+app.post('/addquestion', async (req, res) => {
+  let questions = await Question.find({});
+  let id;
+  if(questions.length>0)
+  {
+    let last_question_array = questions.slice(-1);
+    let last_question = last_question_array[0];
+    id = last_question.id+1;
+  } else {
+    id=1;
+  }
   try {
-    const { question, explanation, image, answers } = req.body;
+      const question = new Question({
+          id:id,
+          question: req.body.question,
+          image: req.body.image,
+          explanation: req.body.explanation,
+          category: req.body.category,
+          answers: req.body.answers
+      });
 
-    // Create a new question instance
-    const newQuestion = new Question({
-      question,
-      explanation,
-      image,
-      answers,
-    });
+      console.log(question);
+      await question.save(); // Changed 'product' to 'question'
+      console.log("Saved");
 
-    // Save the question to the database
-    await newQuestion.save();
-    console.log("Saved");
-
-    // Respond with success
-    res.json({
-      success: true,
-      message: "Question added successfully",
-    });
+      res.json({
+          success: true,
+          message: "Question added successfully",
+          question: question
+      });
   } catch (error) {
-    console.error("Error saving question:", error);
-    res.status(500).json({ success: false, error: "Server error" });
+      res.status(500).json({
+          success: false,
+          message: "Failed to add question",
+          error: error.message
+      });
   }
 });
+
 
 // Middleware to fetch user
 const fetchUser = async (req, res, next) => {
@@ -203,4 +220,38 @@ app.post('/logout', fetchUser, (req, res) => {
   const token = req.header('auth-token');
   blacklistedTokens.push(token);
   res.send({ success: true, message: "Logged out successfully" });
+});
+
+// Endpoint for deleting a question
+app.post('/removequestion', async (req, res) => {
+  try {
+    const removedQuestion = await Question.findOneAndDelete({ id: req.body.id });
+    
+    if (!removedQuestion) {
+      return res.status(404).json({
+        success: false,
+        message: "Question not found"
+      });
+    }
+
+    console.log("Question removed", removedQuestion);
+    res.json({
+      success: true,
+      message: "Question removed successfully",
+      questionId: removedQuestion.id
+    });
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      message: "Failed to remove question",
+      error: error.message
+    });
+  }
+});
+
+// endpoint to get all questions
+app.get('/allquestions', async (req,res)=>{
+  let questions = await Question.find({});
+  console.log("All Questions Fetched");
+  res.send(questions);
 });

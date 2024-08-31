@@ -8,11 +8,11 @@ const Footer = () => {
   return (
     <div className='footer'>
       <div className="footer-logo">
-        <img src={footer_logo} alt="Bee Etsh logo" />
-        <p>Bee Etsh</p>
+        <img src={footer_logo} alt="Pharmaca logo" />
+        <p>Pharmaca</p>
       </div>
       <ul className="footer-links">
-        <li>B&W</li>
+        <li>Study Groups</li>
         <li>Courses</li>
         <li>Preparations</li>
         <li>About</li>
