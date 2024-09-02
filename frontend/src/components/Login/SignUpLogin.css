@@ -92,5 +92,26 @@
   .loginsignup_agree p {
     font-size: 0.9rem;
     color: #555;
+    padding-top: 15px;
+  }
+  
+  .password-field {
+    position: relative;
+    width: 100%;
+  }
+  
+  .password-field input {
+    width: 100%;
+    padding-right: 40px; /* Space for the icon */
+    box-sizing: border-box;
+  }
+  
+  .eye-icon {
+    position: absolute;
+    right: 10px;
+    top: 35%;
+    transform: translateY(-50%);
+    cursor: pointer;
+    font-size: 1.2rem;
   }
   

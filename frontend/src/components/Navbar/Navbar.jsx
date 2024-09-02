@@ -18,7 +18,7 @@ function CollapsibleExample() {
           <Nav className="me-auto">
             <Link to="/" className="nav-link">Home</Link>
             <NavDropdown title="SPLE" id="collapsible-nav-dropdown">
-              <Link to="/files" className="dropdown-item">Files</Link>
+              <Link to="/notes" className="dropdown-item">Notes</Link>
               <Link to="/courses" className="dropdown-item">Courses</Link>
               <Link to="/quiz" className="dropdown-item">Quiz</Link>
               <NavDropdown.Divider />
@@ -26,7 +26,8 @@ function CollapsibleExample() {
             </NavDropdown>
           </Nav>
           <Nav>
-            <Link to="/login" className="nav-link">Log In / Sign Up</Link>
+            {localStorage.getItem('auth-token')?<button onClick={()=>{localStorage.removeItem('auth-token');window.location.replace('/')}}>Logout</button>
+            :<Link to="/login" className="nav-link">Log In / Sign Up</Link>}
           </Nav>
         </Navbar.Collapse>
       </Container>

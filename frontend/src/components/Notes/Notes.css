@@ -1,0 +1,28 @@
+#pdfViewer {
+    user-select: none;
+    pointer-events: none;
+  }
+  
+  canvas {
+    user-select: none;
+    pointer-events: auto;
+  }
+  
+  body {
+    -webkit-touch-callout: none; /* Disable text selection on mobile */
+    -webkit-user-select: none;   /* Disable text selection on Safari */
+    -khtml-user-select: none;    /* Disable text selection on Safari */
+    -moz-user-select: none;      /* Disable text selection on Firefox */
+    -ms-user-select: none;       /* Disable text selection on Internet Explorer/Edge */
+    user-select: none;           /* Disable text selection on modern browsers */
+  }
+  .pdf-viewer-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  canvas {
+    margin-bottom: 20px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  }
+  

@@ -5,8 +5,9 @@ import './Quiz.css';
 const Quiz = () => {
     const [questions, setQuestions] = useState([]);
     const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
-    const [selectedAnswerIndex, setSelectedAnswerIndex] = useState(null);
+    const [selectedAnswers, setSelectedAnswers] = useState([]); // Store selected answers
     const [isCorrect, setIsCorrect] = useState(null);
+    const [showExplanation, setShowExplanation] = useState(false);
     const answersButtonRef = useRef(null);
     const navigate = useNavigate();
     const [loggedIn, setLoggedIn] = useState(false);
@@ -34,9 +35,11 @@ const Quiz = () => {
             const formattedQuestions = shuffledQuestions.map(question => ({
                 question: question.question,
                 answers: question.answers.map(answer => answer.text),
-                correctAnswerIndex: question.answers.findIndex(answer => answer.correct)
+                correctAnswerIndex: question.answers.findIndex(answer => answer.correct),
+                explanation: question.explanation || ''
             }));
             setQuestions(formattedQuestions);
+            setSelectedAnswers(new Array(formattedQuestions.length).fill(null)); // Initialize answer array
         } catch (error) {
             console.error('Failed to fetch questions:', error);
         }
@@ -57,7 +60,7 @@ const Quiz = () => {
                             key={index}
                             className={getButtonClass(index)}
                             onClick={() => selectAnswer(index)}
-                            disabled={selectedAnswerIndex !== null}
+                            disabled={selectedAnswers[currentQuestionIndex] !== null}
                         >
                             {answer}
                         </button>
@@ -68,26 +71,48 @@ const Quiz = () => {
     };
 
     const getButtonClass = (index) => {
+        const selectedAnswerIndex = selectedAnswers[currentQuestionIndex];
         if (selectedAnswerIndex === null) return ''; // No selection yet
         if (index === selectedAnswerIndex) {
             return isCorrect ? 'correct' : 'wrong';
         } else if (index === questions[currentQuestionIndex].correctAnswerIndex) {
-            return 'correct-highlight'; // Highlight correct answer if wrong one was selected
+            return 'correct-highlight';
         }
-        return ''; // Default class
+        return '';
     };
 
     const selectAnswer = (index) => {
         const correct = questions[currentQuestionIndex].correctAnswerIndex === index;
-        setSelectedAnswerIndex(index);
+        const updatedAnswers = [...selectedAnswers];
+        updatedAnswers[currentQuestionIndex] = index;
+        setSelectedAnswers(updatedAnswers); // Store the selected answer in the array
         setIsCorrect(correct);
+        setShowExplanation(true);
+    };
+
+    const toggleExplanation = () => {
+        setShowExplanation(prevState => !prevState);
     };
 
     const finishQuiz = () => {
-        const score = questions.reduce((score, question, index) => {
-            return score + (question.correctAnswerIndex === selectedAnswerIndex ? 1 : 0);
-        }, 0);
+        const score = selectedAnswers.filter(
+            (answer, index) => answer === questions[index].correctAnswerIndex
+        ).length;
         alert(`Quiz finished! Your score is: ${score}/${questions.length}`);
+    };
+
+    const handleNavigation = (direction) => {
+        setIsCorrect(null); // Reset correctness for the new question
+        setShowExplanation(false); // Hide explanation when navigating
+        if (direction === 'next') {
+            if (currentQuestionIndex === questions.length - 1) {
+                finishQuiz(); // Call finishQuiz when it's the last question
+            } else {
+                setCurrentQuestionIndex(prev => Math.min(prev + 1, questions.length - 1));
+            }
+        } else if (direction === 'previous') {
+            setCurrentQuestionIndex(prev => Math.max(prev - 1, 0));
+        }
     };
 
     return (
@@ -96,29 +121,30 @@ const Quiz = () => {
                 <div className="quiz-container">
                     {questions.length > 0 && showQuestion()}
 
+                    {selectedAnswers[currentQuestionIndex] !== null && (
+                        <div>
+                            <button onClick={toggleExplanation}>
+                                {showExplanation ? 'Hide Explanation' : 'Show Explanation'}
+                            </button>
+                            {showExplanation && (
+                                <div className="explanation">
+                                    <p>{questions[currentQuestionIndex].explanation}</p>
+                                </div>
+                            )}
+                        </div>
+                    )}
+
                     <div id="navigation_buttons">
                         <button
                             id="previous_btn"
-                            onClick={() => {
-                                setSelectedAnswerIndex(null);
-                                setIsCorrect(null);
-                                setCurrentQuestionIndex(prev => Math.max(prev - 1, 0));
-                            }}
+                            onClick={() => handleNavigation('previous')}
                             disabled={currentQuestionIndex === 0}
                         >
                             Previous
                         </button>
                         <button
                             id="next_btn"
-                            onClick={() => {
-                                setSelectedAnswerIndex(null);
-                                setIsCorrect(null);
-                                if (currentQuestionIndex === questions.length - 1) {
-                                    finishQuiz();
-                                } else {
-                                    setCurrentQuestionIndex(prev => Math.min(prev + 1, questions.length - 1));
-                                }
-                            }}
+                            onClick={() => handleNavigation('next')}
                         >
                             {currentQuestionIndex === questions.length - 1 ? 'Finish' : 'Next'}
                         </button>

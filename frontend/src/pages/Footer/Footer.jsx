@@ -13,10 +13,11 @@ const Footer = () => {
       </div>
       <ul className="footer-links">
         <li>Study Groups</li>
-        <li>Courses</li>
-        <li>Preparations</li>
-        <li>About</li>
+        <li>Jobs</li>
+        <li>Data Flow</li>
+        <li>Interviews</li>
         <li>Contact</li>
+        <li>About</li>
       </ul>
       <div className="footer-social-icons">
         <div className="footer-icons-container">
