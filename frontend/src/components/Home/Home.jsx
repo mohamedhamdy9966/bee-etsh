@@ -4,6 +4,7 @@ import ExampleCarouselImage from '../../assets/images/carousel-1.jpg'; // Import
 import ExampleCarouselImage2 from '../../assets/images/carousel-2.jpg'; // Import the image
 import ExampleCarouselImage3 from '../../assets/images/carousel-3.jpg'; // Import the image
 import EmailSubscribe from '../Email/EmailSubscribe';
+import './Home.css'
 
 const Home = () => {
   return (
@@ -17,7 +18,7 @@ const Home = () => {
             alt="First slide"
           />
           <Carousel.Caption>
-            <h3>Biggest Prometric Source</h3>
+            <h3>Biggest Pharmacy Exams Source</h3>
             <p>We Helped over 1000 Students through Years Pass The Prometric Exam</p>
           </Carousel.Caption>
         </Carousel.Item>
@@ -29,8 +30,8 @@ const Home = () => {
             alt="Second slide"
           />
           <Carousel.Caption>
-            <h3>Second slide label</h3>
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+            <h3>Biggest Pharmaceutical Community In Middle East</h3>
+            <p>Helping All Arab Pharmacists Communicating Around The World</p>
           </Carousel.Caption>
         </Carousel.Item>
 
@@ -41,13 +42,46 @@ const Home = () => {
             alt="Third slide"
           />
           <Carousel.Caption>
-            <h3>Third slide label</h3>
-            <p>Praesent commodo cursus magna, vel scelerisque nisl consectetur.</p>
+            <h3>Your Way To Achieve Success</h3>
+            <p>Join Hunderds Of Pharmacists , Register Now It's FREE !</p>
           </Carousel.Caption>
         </Carousel.Item>
       </Carousel>
       <EmailSubscribe/>
-      
+      <Carousel>
+        <Carousel.Item>
+          <div className="carousel-section">
+            <h3>MALAZ AHMED</h3>
+            <h6>Student</h6>
+            <h4>SPLE</h4>
+            <h5>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Voluptatum necessitatibus eos aspernatur minima qui incidunt perspiciatis eius illo, eveniet saepe aliquid mollitia, beatae quidem voluptatibus suscipit quae amet obcaecati eaque?</h5>
+          </div>
+        </Carousel.Item>
+        <Carousel.Item>
+        <div className="carousel-section">
+            <h3>SHHERIF MADKOUR</h3>
+            <h6>Doctor</h6>
+            <h4>SPLE</h4>
+            <h5>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Voluptatum necessitatibus eos aspernatur minima qui incidunt perspiciatis eius illo, eveniet saepe aliquid mollitia, beatae quidem voluptatibus suscipit quae amet obcaecati eaque?</h5>
+          </div>
+        </Carousel.Item>
+        <Carousel.Item>
+        <div className="carousel-section">
+            <h3>MOAAZ MOHAMED</h3>
+            <h6>Student</h6>
+            <h4>DHA</h4>
+            <h5>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Voluptatum necessitatibus eos aspernatur minima qui incidunt perspiciatis eius illo, eveniet saepe aliquid mollitia, beatae quidem voluptatibus suscipit quae amet obcaecati eaque?</h5>
+          </div>
+        </Carousel.Item>
+        <Carousel.Item>
+        <div className="carousel-section">
+            <h3>MOHAMED EL HAWARY</h3>
+            <h6>Doctor</h6>
+            <h4>SPLE</h4>
+            <h5>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Voluptatum necessitatibus eos aspernatur minima qui incidunt perspiciatis eius illo, eveniet saepe aliquid mollitia, beatae quidem voluptatibus suscipit quae amet obcaecati eaque?</h5>
+          </div>
+        </Carousel.Item>
+      </Carousel>
     </div>
   );
 }

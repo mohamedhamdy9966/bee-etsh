@@ -24,10 +24,80 @@ function CollapsibleExample() {
               <NavDropdown.Divider />
               <Link to="/exam" className="dropdown-item">Exam</Link>
             </NavDropdown>
+            <NavDropdown title="DHA" id="collapsible-nav-dropdown">
+              <Link to="/notes" className="dropdown-item">Notes</Link>
+              <Link to="/courses" className="dropdown-item">Courses</Link>
+              <Link to="/quiz" className="dropdown-item">Quiz</Link>
+              <NavDropdown.Divider />
+              <Link to="/exam" className="dropdown-item">Exam</Link>
+            </NavDropdown>
+            <NavDropdown title="HAAD" id="collapsible-nav-dropdown">
+              <Link to="/notes" className="dropdown-item">Notes</Link>
+              <Link to="/courses" className="dropdown-item">Courses</Link>
+              <Link to="/quiz" className="dropdown-item">Quiz</Link>
+              <NavDropdown.Divider />
+              <Link to="/exam" className="dropdown-item">Exam</Link>
+            </NavDropdown>
+            <NavDropdown title="NAHRA" id="collapsible-nav-dropdown">
+              <Link to="/notes" className="dropdown-item">Notes</Link>
+              <Link to="/courses" className="dropdown-item">Courses</Link>
+              <Link to="/quiz" className="dropdown-item">Quiz</Link>
+              <NavDropdown.Divider />
+              <Link to="/exam" className="dropdown-item">Exam</Link>
+            </NavDropdown>
+            <NavDropdown title="QCHP" id="collapsible-nav-dropdown">
+              <Link to="/notes" className="dropdown-item">Notes</Link>
+              <Link to="/courses" className="dropdown-item">Courses</Link>
+              <Link to="/quiz" className="dropdown-item">Quiz</Link>
+              <NavDropdown.Divider />
+              <Link to="/exam" className="dropdown-item">Exam</Link>
+            </NavDropdown>
+            <NavDropdown title="MOH" id="collapsible-nav-dropdown">
+              <Link to="/notes" className="dropdown-item">Notes</Link>
+              <Link to="/courses" className="dropdown-item">Courses</Link>
+              <Link to="/quiz" className="dropdown-item">Quiz</Link>
+              <NavDropdown.Divider />
+              <Link to="/exam" className="dropdown-item">Exam</Link>
+            </NavDropdown>
+            <NavDropdown title="KAPS" id="collapsible-nav-dropdown">
+              <Link to="/notes" className="dropdown-item">Notes</Link>
+              <Link to="/courses" className="dropdown-item">Courses</Link>
+              <Link to="/quiz" className="dropdown-item">Quiz</Link>
+              <NavDropdown.Divider />
+              <Link to="/exam" className="dropdown-item">Exam</Link>
+            </NavDropdown>
+            <NavDropdown title="BCPS" id="collapsible-nav-dropdown">
+              <Link to="/notes" className="dropdown-item">Notes</Link>
+              <Link to="/courses" className="dropdown-item">Courses</Link>
+              <Link to="/quiz" className="dropdown-item">Quiz</Link>
+              <NavDropdown.Divider />
+              <Link to="/exam" className="dropdown-item">Exam</Link>
+            </NavDropdown>
+            <NavDropdown title="PEBC" id="collapsible-nav-dropdown">
+              <Link to="/notes" className="dropdown-item">Notes</Link>
+              <Link to="/courses" className="dropdown-item">Courses</Link>
+              <Link to="/quiz" className="dropdown-item">Quiz</Link>
+              <NavDropdown.Divider />
+              <Link to="/exam" className="dropdown-item">Exam</Link>
+            </NavDropdown>
+            <NavDropdown title="Pearson Vue" id="collapsible-nav-dropdown">
+              <Link to="/notes" className="dropdown-item">Notes</Link>
+              <Link to="/courses" className="dropdown-item">Courses</Link>
+              <Link to="/quiz" className="dropdown-item">Quiz</Link>
+              <NavDropdown.Divider />
+              <Link to="/exam" className="dropdown-item">Exam</Link>
+            </NavDropdown>
+            <NavDropdown title="VIVA" id="collapsible-nav-dropdown">
+              <Link to="/notes" className="dropdown-item">Notes</Link>
+              <Link to="/courses" className="dropdown-item">Courses</Link>
+              <Link to="/quiz" className="dropdown-item">Quiz</Link>
+              <NavDropdown.Divider />
+              <Link to="/exam" className="dropdown-item">Exam</Link>
+            </NavDropdown>
           </Nav>
           <Nav>
             {localStorage.getItem('auth-token')?<button onClick={()=>{localStorage.removeItem('auth-token');window.location.replace('/')}}>Logout</button>
-            :<Link to="/login" className="nav-link">Log In / Sign Up</Link>}
+            :<Link to="/login" className="nav-link">Log In</Link>}
           </Nav>
         </Navbar.Collapse>
       </Container>

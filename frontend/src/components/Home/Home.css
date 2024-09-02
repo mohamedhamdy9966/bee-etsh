@@ -1,0 +1,134 @@
+/* General Carousel Styles */
+.carousel img {
+    height: 600px;
+    object-fit: cover;
+    width: 100%;
+}
+
+.carousel-caption {
+    background-color: rgba(0, 0, 0, 0.5);
+    padding: 1rem;
+    border-radius: 10px;
+}
+
+.carousel-caption h3 {
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: #fff;
+    margin-bottom: 0.5rem;
+}
+
+.carousel-caption p {
+    font-size: 1.2rem;
+    color: #f8f9fa;
+}
+
+/* Carousel Section Styles */
+.carousel-section {
+    text-align: center;
+    padding: 2rem 1rem;
+    background-color: rgba(131, 201, 159, 0.8);
+    border-radius: 10px;
+    margin: 2rem auto;
+    max-width: 80%;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.carousel-section h3 {
+    font-size: 2rem;
+    font-weight: 700;
+    color: #333;
+    margin-bottom: 0.5rem;
+}
+
+.carousel-section h6 {
+    font-size: 1.2rem;
+    font-weight: 400;
+    color: #777;
+    margin-bottom: 1rem;
+}
+
+.carousel-section h4 {
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: #007bff;
+    margin-bottom: 1rem;
+}
+
+.carousel-section h5 {
+    font-size: 1rem;
+    font-weight: 400;
+    color: #555;
+    line-height: 1.5;
+}
+
+/* Responsive Styles */
+@media (max-width: 768px) {
+    .carousel img {
+        height: 400px;
+    }
+
+    .carousel-caption h3 {
+        font-size: 2rem;
+    }
+
+    .carousel-caption p {
+        font-size: 1rem;
+    }
+
+    .carousel-section {
+        padding: 1.5rem 0.5rem;
+        max-width: 90%;
+    }
+
+    .carousel-section h3 {
+        font-size: 1.5rem;
+    }
+
+    .carousel-section h6 {
+        font-size: 1rem;
+    }
+
+    .carousel-section h4 {
+        font-size: 1.3rem;
+    }
+
+    .carousel-section h5 {
+        font-size: 0.9rem;
+    }
+}
+
+@media (max-width: 576px) {
+    .carousel img {
+        height: 300px;
+    }
+
+    .carousel-caption h3 {
+        font-size: 1.5rem;
+    }
+
+    .carousel-caption p {
+        font-size: 0.9rem;
+    }
+
+    .carousel-section {
+        padding: 1rem 0.5rem;
+        max-width: 95%;
+    }
+
+    .carousel-section h3 {
+        font-size: 1.2rem;
+    }
+
+    .carousel-section h6 {
+        font-size: 0.9rem;
+    }
+
+    .carousel-section h4 {
+        font-size: 1.1rem;
+    }
+
+    .carousel-section h5 {
+        font-size: 0.8rem;
+    }
+}
