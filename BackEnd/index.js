@@ -10,7 +10,7 @@ const path = require("path");
 const { type } = require('os');
 
 const app = express();
-const port = process.env.PORT || 3000;
+const port = process.env.PORT || 4000;
 
 const blacklistedTokens = [];
 
@@ -76,6 +76,16 @@ app.post('/addquestion', async (req, res) => {
   }
 });
 
+// endpoint to get all questions
+app.get('/allquestions', async (req,res)=>{
+  try {
+    const questions = await Question.find(); // Fetch all questions from MongoDB
+    res.json(questions);
+  } catch (error) {
+    res.status(500).json({ errors: "Failed to fetch questions" });
+  }
+});
+
 
 // Middleware to fetch user
 const fetchUser = async (req, res, next) => {
@@ -96,17 +106,6 @@ const fetchUser = async (req, res, next) => {
     res.status(401).send({ errors: "Session expired or invalid token. Please log in again." });
   }
 };
-
-
-// Endpoint to fetch all questions
-app.get('/questions', async (req, res) => {
-  try {
-    const questions = await Question.find(); // Fetch all questions from MongoDB
-    res.json(questions);
-  } catch (error) {
-    res.status(500).json({ errors: "Failed to fetch questions" });
-  }
-});
 
 // Database connection with MongoDB
 mongoose.connect(process.env.MONGODB_URI, {
@@ -130,7 +129,7 @@ const upload = multer({ storage: storage });
 app.use('/Images', express.static('upload/Images'));
 
 // Image upload endpoint
-app.post("/upload", upload.single('question'), (req, res) => {
+app.post("/upload", upload.single('image'), (req, res) => {
   res.json({
     success: 1,
     image_url: `http://localhost:${port}/Images/${req.file.filename}`
@@ -139,25 +138,31 @@ app.post("/upload", upload.single('question'), (req, res) => {
 
 // Define the User model
 const userSchema = new mongoose.Schema({
-  username: { type: String, required: true },
+  username: { type: String, required: true, unique: true },
   email: { type: String, required: true, unique: true },
   password: { type: String, required: true },
+  date:{type:Date,
+    default:Date.now,
+  }
 });
 
-const User = mongoose.model("User", userSchema);
+const Users = mongoose.model("Users", userSchema);
 
 // Endpoint for user signup
 app.post('/signup', async (req, res) => {
   try {
-    let check = await User.findOne({ email: req.body.email });
-    if (check) {
-      return res.status(400).json({ success: false, errors: "Email already in use" });
+    let checkEmail = await Users.findOne({ email: req.body.email });
+    let checkUserName = await Users.findOne({ username: req.body.username });
+    if (checkEmail) {
+      return res.status(400).json({ success: false, errors: "Exisiting User With The Same Email Already In Use" });
     }
-
+    if (checkUserName) {
+      return res.status(400).json({ success: false, errors: "Exisiting User With The Same Username , Please Change Your Username" });
+    }
     // Hash the password before saving it to the database
     const hashedPassword = await bcrypt.hash(req.body.password, 10);
 
-    const user = new User({
+    const user = new Users({
       username: req.body.username,
       email: req.body.email,
       password: hashedPassword,
@@ -180,7 +185,7 @@ app.post('/signup', async (req, res) => {
 // Endpoint for user login
 app.post('/login', async (req, res) => {
   try {
-    let user = await User.findOne({ email: req.body.email });
+    let user = await Users.findOne({ email: req.body.email });
     if (!user) {
       return res.status(400).json({ success: false, errors: "Invalid email" });
     }
@@ -247,11 +252,4 @@ app.post('/removequestion', async (req, res) => {
       error: error.message
     });
   }
-});
-
-// endpoint to get all questions
-app.get('/allquestions', async (req,res)=>{
-  let questions = await Question.find({});
-  console.log("All Questions Fetched");
-  res.send(questions);
 });

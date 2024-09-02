@@ -1,0 +1,128 @@
+.add-question {
+    width: 100%;
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #f9f9f9;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+  }
+  
+  .addquestion-itemfield {
+    margin-bottom: 20px;
+  }
+  
+  .addquestion-itemfield p {
+    margin-bottom: 8px;
+    font-size: 16px;
+    font-weight: bold;
+    color: #333;
+  }
+  
+  .addquestion-itemfield input[type="text"],
+  .addquestion-itemfield select {
+    width: 100%;
+    padding: 10px;
+    border-radius: 4px;
+    border: 1px solid #ddd;
+    font-size: 14px;
+    outline: none;
+  }
+  
+  .addquestion-itemfield input[type="text"]:focus,
+  .addquestion-itemfield select:focus {
+    border-color: #007bff;
+  }
+  
+  .addquestion-category select {
+    width: 100%;
+    padding: 10px;
+    border-radius: 4px;
+    border: 1px solid #ddd;
+    font-size: 14px;
+    outline: none;
+  }
+  
+  .addquestion-explanation input {
+    width: 100%;
+    padding: 10px;
+    border-radius: 4px;
+    border: 1px solid #ddd;
+    font-size: 14px;
+    outline: none;
+  }
+  
+  .addquestion-explanation input:focus {
+    border-color: #007bff;
+  }
+  
+  .addquestion-answers {
+    margin-bottom: 20px;
+  }
+  
+  .addquestion-answers div {
+    margin-bottom: 10px;
+    display: flex;
+    align-items: center;
+  }
+  
+  .addquestion-answers input[type="text"] {
+    width: calc(100% - 80px);
+    padding: 10px;
+    border-radius: 4px;
+    border: 1px solid #ddd;
+    font-size: 14px;
+    margin-right: 10px;
+    outline: none;
+  }
+  
+  .addquestion-answers input[type="radio"] {
+    margin-right: 5px;
+  }
+  
+  .addquestion-answers label {
+    font-size: 14px;
+    color: #333;
+  }
+  
+  .addquestion-itemfield label img {
+    width: 50px;
+    height: 50px;
+    cursor: pointer;
+  }
+  
+  .addquestion-btn {
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: #fff;
+    font-size: 16px;
+    font-weight: bold;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    text-align: center;
+  }
+  
+  .addquestion-btn:hover {
+    background-color: #0056b3;
+  }
+  
+  @media (max-width: 768px) {
+    .add-question {
+      padding: 15px;
+    }
+  
+    .addquestion-itemfield input[type="text"],
+    .addquestion-itemfield select {
+      font-size: 13px;
+    }
+  
+    .addquestion-btn {
+      width: 100%;
+      padding: 12px;
+      font-size: 15px;
+    }
+  }
+  

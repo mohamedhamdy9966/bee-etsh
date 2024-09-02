@@ -24,7 +24,7 @@ const Exam = () => {
 
     const fetchQuestions = async () => {
         try {
-            const response = await fetch('http://localhost:3000/questions');
+            const response = await fetch('http://localhost:4000/allquestions');
             const data = await response.json();
             const shuffledQuestions = shuffle(data).slice(0, 105);
             setQuestions(shuffledQuestions);
@@ -109,25 +109,26 @@ const Exam = () => {
     };
 
     const startTimer = () => {
-        let timeRemaining = examDuration;
+        let timeRemaining = examDuration; // Initialize with the total exam duration
+    
         const interval = setInterval(() => {
             const hours = Math.floor(timeRemaining / 3600);
             const minutes = Math.floor((timeRemaining % 3600) / 60);
             const seconds = timeRemaining % 60;
-
+    
             if (timerElementRef.current) {
                 timerElementRef.current.innerHTML = `<i class="fa-solid fa-clock"></i> Section Time Remaining: ${formatTime(hours)}:${formatTime(minutes)}:${formatTime(seconds)}`;
             }
-
+    
             if (timeRemaining <= 0) {
-                clearInterval(interval);
-                finishExam();
+                clearInterval(interval); // Stop the timer
+                finishExam(); // Finish the exam
             }
-
-            timeRemaining--;
+    
+            timeRemaining--; // Decrement the time remaining
         }, 1000);
-
-        return () => clearInterval(interval);
+    
+        setTimer(interval); // Store the interval ID in the state to clear it later
     };
 
     const formatTime = (time) => time < 10 ? `0${time}` : time;
@@ -212,7 +213,6 @@ const Exam = () => {
         if (timer) {
             clearInterval(timer);
         }
-        setTimer(null);
         setExamFinished(true);
     };
 
@@ -267,7 +267,7 @@ const Exam = () => {
                     )}
                 </div>
             ) : questions.length === 0 ? (
-                <button onClick={handleStartExam}>Start Exam</button>
+                <button onClick={handleStartExam} className="btn btn-primary">Start Exam</button>
             ) : (
                 <>
                 <SidebarBullets 

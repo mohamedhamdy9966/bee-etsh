@@ -1,15 +1,16 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { useNavigate } from 'react-router-dom';  // Assuming react-router-dom is being used
+import { useNavigate } from 'react-router-dom';
+import './Quiz.css';
 
 const Quiz = () => {
-    const [questions, setQuestions] = useState([]); // State for questions
-    const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0); // Tracks the current question index
-    const [answers, setAnswers] = useState([]); // Stores selected answers
-    const answersButtonRef = useRef(null); // Reference to the container for answer buttons
+    const [questions, setQuestions] = useState([]);
+    const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
+    const [selectedAnswerIndex, setSelectedAnswerIndex] = useState(null);
+    const [isCorrect, setIsCorrect] = useState(null);
+    const answersButtonRef = useRef(null);
     const navigate = useNavigate();
-    const [loggedIn, setLoggedIn] = useState(false);  // Tracks login status
+    const [loggedIn, setLoggedIn] = useState(false);
 
-    // Check user login status
     useEffect(() => {
         checkLoginStatus();
     }, []);
@@ -17,44 +18,34 @@ const Quiz = () => {
     const checkLoginStatus = () => {
         const token = localStorage.getItem('auth-token');
         if (!token) {
-            navigate('/login');  // Redirect to login if no token found
+            navigate('/login');
             return false;
         }
-        setLoggedIn(true);  // Set logged-in state
-        fetchQuestions();  // Fetch questions if user is logged in
+        setLoggedIn(true);
+        fetchQuestions();
         return true;
     };
 
-    // Fetch questions from your backend
     const fetchQuestions = async () => {
         try {
-            const response = await fetch('http://localhost:3000/questions'); // Fetch questions from your backend
+            const response = await fetch('http://localhost:4000/allquestions');
             const data = await response.json();
-    
-            // Shuffle the questions
             const shuffledQuestions = shuffleArray(data);
-    
-            // Format the shuffled questions
             const formattedQuestions = shuffledQuestions.map(question => ({
                 question: question.question,
                 answers: question.answers.map(answer => answer.text),
                 correctAnswerIndex: question.answers.findIndex(answer => answer.correct)
             }));
-    
             setQuestions(formattedQuestions);
-            setAnswers(Array(formattedQuestions.length).fill(null)); // Initialize answers
         } catch (error) {
             console.error('Failed to fetch questions:', error);
         }
     };
-    
-    // Helper function to shuffle an array
+
     const shuffleArray = (array) => {
         return array.sort(() => Math.random() - 0.5);
     };
-    
 
-    // Show current question and answer buttons
     const showQuestion = () => {
         const currentQuestion = questions[currentQuestionIndex];
         return (
@@ -64,8 +55,9 @@ const Quiz = () => {
                     {currentQuestion.answers.map((answer, index) => (
                         <button
                             key={index}
-                            className={answers[currentQuestionIndex] === index ? 'selected' : ''}
+                            className={getButtonClass(index)}
                             onClick={() => selectAnswer(index)}
+                            disabled={selectedAnswerIndex !== null}
                         >
                             {answer}
                         </button>
@@ -75,35 +67,43 @@ const Quiz = () => {
         );
     };
 
-    // Handle answer selection
-    const selectAnswer = (index) => {
-        setAnswers(prevAnswers => {
-            const updatedAnswers = [...prevAnswers];
-            updatedAnswers[currentQuestionIndex] = index; // Store the selected answer index
-            return updatedAnswers;
-        });
+    const getButtonClass = (index) => {
+        if (selectedAnswerIndex === null) return ''; // No selection yet
+        if (index === selectedAnswerIndex) {
+            return isCorrect ? 'correct' : 'wrong';
+        } else if (index === questions[currentQuestionIndex].correctAnswerIndex) {
+            return 'correct-highlight'; // Highlight correct answer if wrong one was selected
+        }
+        return ''; // Default class
     };
 
-    // Handle quiz completion
-    const finishQuiz = () => {
-        const score = answers.filter((answer, index) => {
-            return questions[index].correctAnswerIndex === answer;
-        }).length;
+    const selectAnswer = (index) => {
+        const correct = questions[currentQuestionIndex].correctAnswerIndex === index;
+        setSelectedAnswerIndex(index);
+        setIsCorrect(correct);
+    };
 
+    const finishQuiz = () => {
+        const score = questions.reduce((score, question, index) => {
+            return score + (question.correctAnswerIndex === selectedAnswerIndex ? 1 : 0);
+        }, 0);
         alert(`Quiz finished! Your score is: ${score}/${questions.length}`);
-        // Implement logic to display score on the UI instead of alert if required
     };
 
     return (
-        <div>
+        <div className="quiz-wrapper">
             {loggedIn ? (
-                <>
+                <div className="quiz-container">
                     {questions.length > 0 && showQuestion()}
 
                     <div id="navigation_buttons">
                         <button
                             id="previous_btn"
-                            onClick={() => setCurrentQuestionIndex(prev => Math.max(prev - 1, 0))}
+                            onClick={() => {
+                                setSelectedAnswerIndex(null);
+                                setIsCorrect(null);
+                                setCurrentQuestionIndex(prev => Math.max(prev - 1, 0));
+                            }}
                             disabled={currentQuestionIndex === 0}
                         >
                             Previous
@@ -111,6 +111,8 @@ const Quiz = () => {
                         <button
                             id="next_btn"
                             onClick={() => {
+                                setSelectedAnswerIndex(null);
+                                setIsCorrect(null);
                                 if (currentQuestionIndex === questions.length - 1) {
                                     finishQuiz();
                                 } else {
@@ -121,7 +123,7 @@ const Quiz = () => {
                             {currentQuestionIndex === questions.length - 1 ? 'Finish' : 'Next'}
                         </button>
                     </div>
-                </>
+                </div>
             ) : (
                 <p>Redirecting to login...</p>
             )}
