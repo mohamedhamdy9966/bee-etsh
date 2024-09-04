@@ -8,6 +8,7 @@ const cors = require("cors");
 const multer = require("multer");
 const path = require("path");
 const { type } = require('os');
+const nodemailer = require('nodemailer');
 
 const app = express();
 const port = process.env.PORT || 4000;
@@ -74,6 +75,52 @@ app.post('/addquestion', async (req, res) => {
           error: error.message
       });
   }
+});
+
+const transporter = nodemailer.createTransport({
+  service: 'gmail',
+  auth: {
+    user: process.env.EMAIL_USER,
+    pass: process.env.EMAIL_PASS
+  },
+  tls: {
+    rejectUnauthorized: false // This allows connections to servers with self-signed certificates
+  }
+});
+
+const testEmail = async () => {
+  try {
+    const info = await transporter.sendMail({
+      from: process.env.EMAIL_USER,
+      to: 'mh7008006@gmail.com',
+      subject: 'Test Email',
+      text: 'This is a test email sent from Node.js server.'
+    });
+
+    console.log('Test email sent:', info.response);
+  } catch (error) {
+    console.error('Error sending test email:', error);
+  }
+};
+
+testEmail();
+
+app.post('/sendmail', (req, res) => {
+  const { name, email, message } = req.body;
+
+  const mailOptions = {
+    from: email,
+    to: 'mh7008006@gmail.com',
+    subject: `Message from ${name}`,
+    text: message
+  };
+
+  transporter.sendMail(mailOptions, (error, info) => {
+    if (error) {
+      return res.status(500).send(error.toString());
+    }
+    res.status(200).send('Message sent successfully!');
+  });
 });
 
 // endpoint to get all questions
