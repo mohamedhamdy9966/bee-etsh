@@ -5,12 +5,11 @@ import './Quiz.css';
 const Quiz = () => {
     const [questions, setQuestions] = useState([]);
     const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
-    const [selectedAnswers, setSelectedAnswers] = useState([]); // Store selected answers
-    const [isCorrect, setIsCorrect] = useState(null);
-    const [showExplanation, setShowExplanation] = useState(false);
+    const [selectedAnswers, setSelectedAnswers] = useState([]);
+    const [loggedIn, setLoggedIn] = useState(false);
     const answersButtonRef = useRef(null);
     const navigate = useNavigate();
-    const [loggedIn, setLoggedIn] = useState(false);
+    const [showExplanation, setShowExplanation] = useState(false);
 
     useEffect(() => {
         checkLoginStatus();
@@ -39,15 +38,13 @@ const Quiz = () => {
                 explanation: question.explanation || ''
             }));
             setQuestions(formattedQuestions);
-            setSelectedAnswers(new Array(formattedQuestions.length).fill(null)); // Initialize answer array
+            setSelectedAnswers(new Array(formattedQuestions.length).fill(null));
         } catch (error) {
             console.error('Failed to fetch questions:', error);
         }
     };
 
-    const shuffleArray = (array) => {
-        return array.sort(() => Math.random() - 0.5);
-    };
+    const shuffleArray = (array) => array.sort(() => Math.random() - 0.5);
 
     const showQuestion = () => {
         const currentQuestion = questions[currentQuestionIndex];
@@ -71,27 +68,56 @@ const Quiz = () => {
     };
 
     const getButtonClass = (index) => {
-        const selectedAnswerIndex = selectedAnswers[currentQuestionIndex];
-        if (selectedAnswerIndex === null) return ''; // No selection yet
-        if (index === selectedAnswerIndex) {
-            return isCorrect ? 'correct' : 'wrong';
-        } else if (index === questions[currentQuestionIndex].correctAnswerIndex) {
-            return 'correct-highlight';
+        const selectedIndex = selectedAnswers[currentQuestionIndex];
+        const correctIndex = questions[currentQuestionIndex].correctAnswerIndex;
+
+        if (selectedIndex !== null) {
+            if (index === correctIndex) {
+                return 'correct';
+            }
+            if (index === selectedIndex) {
+                return 'wrong';
+            }
         }
+
         return '';
     };
 
-    const selectAnswer = (index) => {
-        const correct = questions[currentQuestionIndex].correctAnswerIndex === index;
-        const updatedAnswers = [...selectedAnswers];
-        updatedAnswers[currentQuestionIndex] = index;
-        setSelectedAnswers(updatedAnswers); // Store the selected answer in the array
-        setIsCorrect(correct);
-        setShowExplanation(true);
+    const selectAnswer = (selectedIndex) => {
+        const correctIndex = questions[currentQuestionIndex].correctAnswerIndex;
+
+        setSelectedAnswers(prevAnswers => {
+            const newAnswers = [...prevAnswers];
+            newAnswers[currentQuestionIndex] = selectedIndex;
+            return newAnswers;
+        });
+
+        if (answersButtonRef.current) {
+            const buttons = answersButtonRef.current.children;
+            if (selectedIndex !== null) {
+                buttons[selectedIndex].classList.add(selectedIndex === correctIndex ? 'correct' : 'wrong');
+                buttons[correctIndex].classList.add('correct'); // Always highlight the correct answer
+            }
+        }
     };
 
-    const toggleExplanation = () => {
-        setShowExplanation(prevState => !prevState);
+    const handleNavigation = (direction) => {
+        if (answersButtonRef.current) {
+            // Reset button classes when navigating to a new question
+            Array.from(answersButtonRef.current.children).forEach(button => {
+                button.classList.remove('correct', 'wrong');
+            });
+        }
+
+        if (direction === 'next') {
+            if (currentQuestionIndex === questions.length - 1) {
+                finishQuiz();
+            } else {
+                setCurrentQuestionIndex(prev => Math.min(prev + 1, questions.length - 1));
+            }
+        } else if (direction === 'previous') {
+            setCurrentQuestionIndex(prev => Math.max(prev - 1, 0));
+        }
     };
 
     const finishQuiz = () => {
@@ -101,18 +127,8 @@ const Quiz = () => {
         alert(`Quiz finished! Your score is: ${score}/${questions.length}`);
     };
 
-    const handleNavigation = (direction) => {
-        setIsCorrect(null); // Reset correctness for the new question
-        setShowExplanation(false); // Hide explanation when navigating
-        if (direction === 'next') {
-            if (currentQuestionIndex === questions.length - 1) {
-                finishQuiz(); // Call finishQuiz when it's the last question
-            } else {
-                setCurrentQuestionIndex(prev => Math.min(prev + 1, questions.length - 1));
-            }
-        } else if (direction === 'previous') {
-            setCurrentQuestionIndex(prev => Math.max(prev - 1, 0));
-        }
+    const toggleExplanation = () => {
+        setShowExplanation(prevState => !prevState);
     };
 
     return (

@@ -96,8 +96,8 @@ function CollapsibleExample() {
             </NavDropdown>
           </Nav>
           <Nav>
-            {localStorage.getItem('auth-token')?<button onClick={()=>{localStorage.removeItem('auth-token');window.location.replace('/')}}>Logout</button>
-            :<Link to="/login" className="nav-link">Log In</Link>}
+            {localStorage.getItem('auth-token')?<button style={{color:"green"}} onClick={()=>{localStorage.removeItem('auth-token');window.location.replace('/')}}>Logout</button>
+            :<Link to="/login" className="nav-link">Log In/Sign Up</Link>}
           </Nav>
         </Navbar.Collapse>
       </Container>

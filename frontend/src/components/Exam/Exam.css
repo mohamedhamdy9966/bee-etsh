@@ -93,7 +93,7 @@
 }
 
 .btn {
-    background-color: #007bff;
+    background-color: #007bff !important;
     color: white;
     padding: 8px;
     margin: 5px 0;
@@ -104,9 +104,13 @@
     transition: background-color 0.3s ease;
 }
 
+.btn:hover {
+    background-color: tan !important;
+}
+
 .btn.selected-answer {
-    background-color: #28a745;
-    color: aquamarine;
+    background-color: #737274 !important;
+    cursor: none;
     border: 1px solid red;
 }
 

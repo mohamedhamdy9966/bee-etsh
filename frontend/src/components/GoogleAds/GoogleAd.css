@@ -1,0 +1,6 @@
+.ad-container {
+    width: 100%;
+    height: 250px; /* Example height */
+    margin: 20px auto; /* Center the ad */
+    text-align: center;
+}

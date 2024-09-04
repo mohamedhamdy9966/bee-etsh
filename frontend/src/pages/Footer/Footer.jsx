@@ -3,6 +3,7 @@ import './Footer.css';
 import footer_logo from "../../assets/images/logo.png";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTwitter, faWhatsapp, faTelegram, faInstagram, faFacebook, faYoutube } from "@fortawesome/free-brands-svg-icons";
+import { Link } from 'react-router-dom';
 
 const Footer = () => {
   return (
@@ -12,12 +13,24 @@ const Footer = () => {
         <p>Pharmaca</p>
       </div>
       <ul className="footer-links">
-        <li>Study Groups</li>
-        <li>Jobs</li>
-        <li>Data Flow</li>
-        <li>Interviews</li>
-        <li>Contact</li>
-        <li>About</li>
+        <li>
+        <Link to="/groups" style={{color:"white",textDecoration:"none"}}>Study Groups</Link>
+          </li>
+        <li>
+        <Link to="/contact" style={{color:"white",textDecoration:"none"}}>Jobs</Link>
+        </li>
+        <li>
+        <Link to="/contact" style={{color:"white",textDecoration:"none"}}>Data Flow</Link>
+        </li>
+        <li>
+          <Link to="/interview" style={{color:"white",textDecoration:"none"}}>Interviews</Link>
+        </li>
+        <li>
+          <Link to="/contact" style={{color:"white",textDecoration:"none"}}>Contact</Link>
+        </li>
+        <li>
+        <Link to="/contact" style={{color:"white",textDecoration:"none"}}>About</Link>
+        </li>
       </ul>
       <div className="footer-social-icons">
         <div className="footer-icons-container">
@@ -31,22 +44,22 @@ const Footer = () => {
           </a>
         </div>
         <div className="footer-icons-container">
-          <a href="https://telegram.org" target="_blank" rel="noopener noreferrer">
+          <a href="https://t.me/pharmaca1" target="_blank" rel="noopener noreferrer">
             <FontAwesomeIcon icon={faTelegram} />
           </a>
         </div>
         <div className="footer-icons-container">
-          <a href="https://twitter.com" target="_blank" rel="noopener noreferrer">
+          <a href="https://x.com/Pharmaca_" target="_blank" rel="noopener noreferrer">
             <FontAwesomeIcon icon={faTwitter} />
           </a>
         </div>
         <div className="footer-icons-container">
-          <a href="https://whatsapp.com" target="_blank" rel="noopener noreferrer">
+          <a href="https://wa.me/0201013645455" target="_blank" rel="noopener noreferrer">
             <FontAwesomeIcon icon={faWhatsapp} />
           </a>
         </div>
         <div className="footer-icons-container">
-          <a href="https://youtube.com" target="_blank" rel="noopener noreferrer">
+          <a href="https://www.youtube.com/@mohamedmansour8816" target="_blank" rel="noopener noreferrer">
             <FontAwesomeIcon icon={faYoutube} />
           </a>
         </div>

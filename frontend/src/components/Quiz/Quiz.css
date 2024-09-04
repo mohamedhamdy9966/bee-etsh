@@ -1,18 +1,12 @@
 /* Correct answer button */
 button.correct {
-    background-color: #28a745; /* Green background for correct answers */
-    color: white;
-}
-
-/* Highlight correct answer if a wrong answer was selected */
-button.correct-highlight {
-    background-color: #28a745; /* Green background for correct answers */
+    background-color: #28a745 !important; /* Green background for correct answers */
     color: white;
 }
 
 /* Wrong answer button */
 button.wrong {
-    background-color: #dc3545; /* Red background for wrong answers */
+    background-color: #dc3545 !important; /* Red background for wrong answers */
     color: white;
 }
 
