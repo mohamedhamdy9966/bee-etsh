@@ -169,7 +169,7 @@ const AddQuestion = () => {
               <option value="DHA">DHA</option>
               <option value="HAAD">HAAD</option>
               <option value="MOH">MOH</option>
-              <option value="NHRA">NHRA</option>
+              <option value="NHRA">NAHRA</option>
               <option value="VIVA">VIVA</option>
               <option value="Pearson Vue">Pearson Vue</option>
               <option value="QCHP">QCHP</option>
