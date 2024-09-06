@@ -11,22 +11,22 @@ const Notes = () => {
   return (
     <div className="notes-container">
       <h2>Non Pharma</h2>
-      <button onClick={() => handlePdfClick('/notes-2.pdf')}>
+      <button onClick={() => handlePdfClick('/All non Pharma.pdf')}>
         View Non Pharma Notes
       </button>
 
       <h2>Pharma</h2>
-      <button onClick={() => handlePdfClick('/path-to-pharma-notes.pdf')}>
+      <button onClick={() => handlePdfClick('/notes.pdf')}>
         View Pharma Notes
       </button>
 
       <h2>Calculations</h2>
-      <button onClick={() => handlePdfClick('/path-to-calculations-notes.pdf')}>
+      <button onClick={() => handlePdfClick('/notes-2.pdf')}>
         View Calculations Notes
       </button>
 
       <h2>Work Regulations</h2>
-      <button onClick={() => handlePdfClick('/path-to-work-regulations-notes.pdf')}>
+      <button onClick={() => handlePdfClick('/Rx-NAPLEX.pdf')}>
         View Work Regulations Notes
       </button>
 
