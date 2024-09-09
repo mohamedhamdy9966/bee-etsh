@@ -56,7 +56,7 @@ export const SignUpLogin = () => {
     setLoading(true);
     setErrors(null);
     try {
-      const response = await fetch('http://localhost:4000/login', {
+      const response = await fetch('https://pharmaca-production.up.railway.app/login', {
         method: 'POST',
         headers: {
           Accept: 'application/json',
@@ -83,7 +83,7 @@ export const SignUpLogin = () => {
     setLoading(true);
     setErrors(null);
     try {
-      const response = await fetch('http://localhost:4000/signup', {
+      const response = await fetch('https://pharmaca-production.up.railway.app/signup', {
         method: 'POST',
         headers: {
           Accept: 'application/json',

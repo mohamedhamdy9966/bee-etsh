@@ -28,7 +28,7 @@ const Quiz = () => {
 
     const fetchQuestions = async () => {
         try {
-            const response = await fetch('http://localhost:4000/allquestions');
+            const response = await fetch('https://pharmaca-production.up.railway.app/allquestions');
             const data = await response.json();
             const shuffledQuestions = shuffleArray(data);
             const formattedQuestions = shuffledQuestions.map(question => ({
