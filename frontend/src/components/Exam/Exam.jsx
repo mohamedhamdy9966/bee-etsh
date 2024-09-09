@@ -48,7 +48,7 @@ const Exam = () => {
         if (checkLoginStatus()) {
             fetchQuestions();
         }
-    }, []);
+    }, []); // 
 
     const ProgressBar = ({ progress }) => {
         return (
@@ -67,10 +67,10 @@ const Exam = () => {
     };
 
     useEffect(() => {
-        if (questions.length > 0) {
+        if (questions.length > 0 && !timer) {
             startExam();
         }
-    }, [questions]);
+    }, [questions]); // Start the exam only once when questions are fetched
 
     useEffect(() => {
         showQuestion();
@@ -105,12 +105,13 @@ const Exam = () => {
         setSofa(0);
         setExamFinished(false);
         setShowCalculator(false);
-        startTimer();
+        if (!timer) { // Ensure the timer only starts once
+            startTimer();
+        }
     };
 
     const startTimer = () => {
-        let timeRemaining = examDuration; // Initialize with the total exam duration
-    
+        let timeRemaining = examDuration;
         const interval = setInterval(() => {
             const hours = Math.floor(timeRemaining / 3600);
             const minutes = Math.floor((timeRemaining % 3600) / 60);
@@ -121,14 +122,14 @@ const Exam = () => {
             }
     
             if (timeRemaining <= 0) {
-                clearInterval(interval); // Stop the timer
-                finishExam(); // Finish the exam
+                clearInterval(interval);
+                finishExam();
             }
     
-            timeRemaining--; // Decrement the time remaining
+            timeRemaining--;
         }, 1000);
     
-        setTimer(interval); // Store the interval ID in the state to clear it later
+        setTimer(interval);
     };
 
     const formatTime = (time) => time < 10 ? `0${time}` : time;
@@ -223,14 +224,6 @@ const Exam = () => {
         }));
     };
 
-    const handleStartExam = () => {
-        if (!loggedIn) {
-            navigate('/login');
-        } else {
-            startExam();
-        }
-    };
-
     return (
         <div className="exam-wrapper">
             {examFinished ? (
@@ -240,7 +233,7 @@ const Exam = () => {
                     <button>Try Again</button>
                     {wrongAnsweredQuestions.length > 0 && (
                         <div className="wrong-answers">
-                            <h3>Incorrect Answers:</h3>
+                            <h3>The correct Answers For Your Wrong Questions Selected:</h3>
                             <ul>
                                 {wrongAnsweredQuestions.map((question, index) => (
                                     <li key={index}>
@@ -267,7 +260,38 @@ const Exam = () => {
                     )}
                 </div>
             ) : questions.length === 0 ? (
-                <button onClick={handleStartExam} className="btn btn-primary">Start Exam</button>
+                <div class="instructions">
+                    <ul>
+                <li>
+                    لتغيير اختبار النموذج، يمكنك إغلاق موقع الويب ثم إغلاق المتصفح وفتح المتصفح مرة أخرى وإعادة زيارة موقع الويب
+                </li>
+                <li>
+                لإجراء العمليات الحسابية بامكانك استخدام الاله الحاسبة بالضغط على زر لاظهارها او الضغط عليها مرة اخرى لاخفائها
+                </li>
+                <li>
+                لتقوم بالشطب على الاجابة التي تريدها بامكانك الضغط على الجهة اليمنى من الفأرة
+                </li>
+                <li>
+                يمكنك التنقل بين الأسئلة عن طريق الضغط على الزر أسفل الاختبار (التالي ) و ( السابق ) 
+                </li>
+                <li>
+                يمكنك أن تضغط على زر ( العلم) لوضع علامة مميزة على السؤال المراد
+                </li>
+                <li>
+                    الإختبار عبارة عن 105 سؤال في زمن ساعتين و لا يمكن إيقاف الوقت او اخذ استراحة بمجرد بدء الإختبار
+                </li>
+                <li>
+                    يمكنك التنقل بين الأسئلة عن طريق الشريط الجانبي في يسار الشاشة
+                </li>
+                <li>
+                لإنهاء الإختبار و تصفح درجتك النهائية بإمكانك الضغط على زر (Finish Section)                  
+                </li>           
+                <li>
+                لإعادة نفس نموذج الإختبار مرة أخرى بإمكانك الضغط على زر (Try Again ) 
+                </li>
+                </ul>
+                <button className="btn btn-primary">Read The Instructions Carefully , Please. And The Exam Will Start In Seconds</button>
+                </div>
             ) : (
                 <>
                 <SidebarBullets 
