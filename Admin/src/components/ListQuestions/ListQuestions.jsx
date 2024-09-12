@@ -5,7 +5,7 @@ import cross_icon from "../../assets/images/cross-icon.png";
 const ListQuestions = () => {
 
     const remove_question = async (id)=>{
-        await fetch('http://localhost:4000/removequestion',{
+        await fetch('https://pharmaca-production.up.railway.app/removequestion',{
             method:'POST',
             headers:{
                 Accept:'application/json',
@@ -19,7 +19,7 @@ const ListQuestions = () => {
     const [allQuestions, setAllQuestions] = useState([]);
 
     const fetchInfo = async () => {
-        const response = await fetch('http://localhost:4000/allquestions');
+        const response = await fetch('https://pharmaca-production.up.railway.app/allquestions');
         const data = await response.json();
         setAllQuestions(data);
     }

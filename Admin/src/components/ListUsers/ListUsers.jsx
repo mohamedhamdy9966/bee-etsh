@@ -4,7 +4,7 @@ import 'ListUsers.css'
 const ListUsers = () => {
 
     const remove_user = async (id)=>{
-        await fetch('http://localhost:4000/removeuser',{
+        await fetch('https://pharmaca-production.up.railway.app/removeuser',{
             method:'POST',
             headers:{
                 Accept:'application/json',
@@ -18,9 +18,9 @@ const ListUsers = () => {
     const [allUsers, setAllUsers] = useState([]);
 
     const fetchInfo = async () => {
-        const response = await fetch('http://localhost:4000/allusers');
+        const response = await fetch('https://pharmaca-production.up.railway.app/allusers');
         const data = await response.json();
-        setAllQuestions(data);
+        setAllUsers(data);
     }
 
     useEffect(() => {
