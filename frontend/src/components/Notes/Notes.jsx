@@ -30,39 +30,40 @@ const Notes = () => {
       {loggedIn ? (
         <>
           <h2>Non Pharma</h2>
-          <button onClick={() => handlePdfClick(process.env.PUBLIC_URL + '/All-non-Pharma.pdf')}>
+          <button onClick={() => handlePdfClick('/All-non-Pharma.pdf')}>
             View Non Pharma Notes
           </button>
 
           <h2>Pharma</h2>
-          <button onClick={() => handlePdfClick(process.env.PUBLIC_URL + '/notes.pdf')}>
+          <button onClick={() => handlePdfClick('/notes.pdf')}>
             View Pharma Notes
           </button>
 
           <h2>Calculations</h2>
-          <button onClick={() => handlePdfClick(process.env.PUBLIC_URL + '/notes-2.pdf')}>
+          <button onClick={() => handlePdfClick('/notes-2.pdf')}>
             View Calculations Notes
           </button>
 
           <h2>Work Regulations</h2>
-          <button onClick={() => handlePdfClick(process.env.PUBLIC_URL + '/Rx-NAPLEX.pdf')}>
+          <button onClick={() => handlePdfClick('/Rx-NAPLEX.pdf')}>
             View Work Regulations Notes
           </button>
-
-          {selectedPdf && (
-            <div className="pdf-viewer">
-              <iframe
-                src={selectedPdf}
-                title="PDF Viewer"
-                width="100%"
-                height="500px"
-              ></iframe>
-            </div>
-          )}
-        </>
-      ) : (
-        <p>You need to be logged in to view the notes.</p>
-      )}
+          {selectedPdf ? (
+          <div className="pdf-viewer">
+            <embed
+              src={selectedPdf}
+              title="PDF Viewer"
+              width="100%"
+              height="500px"
+            />
+          </div>
+        ) : (
+          <p>Please select a PDF to view.</p>
+        )}
+      </>
+    ) : (
+      <p>You need to be logged in to view the notes.</p>
+    )}
     </div>
   );
 };
