@@ -15,7 +15,7 @@ const EmailSubscribe = () => {
     } else {
       setError('');
       try {
-        const response = await fetch('http://localhost:4000/subscribe', {
+        const response = await fetch('https://pharmaca-production.up.railway.app/subscribe', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
