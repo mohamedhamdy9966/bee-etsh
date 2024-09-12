@@ -230,7 +230,7 @@ const Exam = () => {
                 <div className="exam-results">
                     <h2>Exam Finished</h2>
                     <p>You scored {sofa} out of {questions.length}</p>
-                    <button>Try Again</button>
+                    <button>Congratulations</button>
                     {wrongAnsweredQuestions.length > 0 && (
                         <div className="wrong-answers">
                             <h3>The correct Answers For Your Wrong Questions Selected:</h3>
@@ -310,7 +310,7 @@ const Exam = () => {
                                 Finish
                             </button>
                             <button id='flag_btn' style={{ display: 'inline-block', padding: '10px 20px' }} onClick={flagQuestion}>
-                                {flaggedQuestions.includes(currentQuestionIndex) ? 'Remove Flag' : 'Flag'}
+                                {flaggedQuestions.includes(currentQuestionIndex) ? 'Un Flag' : 'Flag'}
                             </button>
                             <button id="next_btn" style={{ display: 'inline-block', padding: '10px 20px' }} onClick={() => setCurrentQuestionIndex(prev => Math.min(prev + 1, questions.length - 1))}>
                                 Next

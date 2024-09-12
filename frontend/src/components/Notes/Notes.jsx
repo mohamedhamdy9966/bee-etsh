@@ -30,7 +30,7 @@ const Notes = () => {
       {loggedIn ? (
         <>
           <h2>Non Pharma</h2>
-          <button onClick={() => handlePdfClick('/All non Pharma.pdf')}>
+          <button onClick={() => handlePdfClick('/All-non-Pharma.pdf')}>
             View Non Pharma Notes
           </button>
 
