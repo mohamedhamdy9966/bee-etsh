@@ -30,22 +30,22 @@ const Notes = () => {
       {loggedIn ? (
         <>
           <h2>Non Pharma</h2>
-          <button onClick={() => handlePdfClick('/All-non-Pharma.pdf')}>
+          <button onClick={() => handlePdfClick(process.env.PUBLIC_URL + '/All-non-Pharma.pdf')}>
             View Non Pharma Notes
           </button>
 
           <h2>Pharma</h2>
-          <button onClick={() => handlePdfClick('/notes.pdf')}>
+          <button onClick={() => handlePdfClick(process.env.PUBLIC_URL + '/notes.pdf')}>
             View Pharma Notes
           </button>
 
           <h2>Calculations</h2>
-          <button onClick={() => handlePdfClick('/notes-2.pdf')}>
+          <button onClick={() => handlePdfClick(process.env.PUBLIC_URL + '/notes-2.pdf')}>
             View Calculations Notes
           </button>
 
           <h2>Work Regulations</h2>
-          <button onClick={() => handlePdfClick('/Rx-NAPLEX.pdf')}>
+          <button onClick={() => handlePdfClick(process.env.PUBLIC_URL + '/Rx-NAPLEX.pdf')}>
             View Work Regulations Notes
           </button>
 
