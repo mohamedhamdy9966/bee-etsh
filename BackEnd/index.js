@@ -17,9 +17,23 @@ const port = process.env.PORT || 4000;
 
 const blacklistedTokens = [];
 
+const allowedOrigins = [
+  'https://pharmaca.vercel.app',
+  'https://pharmaca-admin.vercel.app'
+];
+
 app.use(express.json());
+
 app.use(cors({
-  origin: 'https://pharmaca.vercel.app'
+  origin: function (origin, callback) {
+    // Allow requests with no origin (like mobile apps or curl requests)
+    if (!origin) return callback(null, true);
+    if (allowedOrigins.indexOf(origin) !== -1) {
+      callback(null, true);
+    } else {
+      callback(new Error('Not allowed by CORS'));
+    }
+  }
 }));
 
 // Define the Question schema
