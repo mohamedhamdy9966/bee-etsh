@@ -5,7 +5,7 @@ import { useNavigate } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faFlag } from '@fortawesome/free-solid-svg-icons';
 
-const Exam = () => {
+const ExamQhcp = () => {
     const [questions, setQuestions] = useState([]);
     const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
     const [sofa, setSofa] = useState(0);
@@ -355,4 +355,4 @@ const Exam = () => {
     };
     
     
-    export default Exam;
+    export default ExamQhcp;

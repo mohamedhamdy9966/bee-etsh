@@ -11,10 +11,11 @@ import Notes from './components/Notes/Notes';
 import Contact from './components/Contact/Contact';
 import GoogleAd from './components/GoogleAds/GoogleAd';
 import Videos from './components/Videos/Videos';
-import { ExamNhra } from "./components/Exam/ExamNhra";
-import { ExamQhcp } from "./components/Exam/ExamQhcp";
-import { ExamDha } from "./components/Exam/ExamDha";
-import { ExamOmsp } from "./components/Exam/ExamOmsp";
+import ExamNhra from './components/Exam/ExamNhra';
+import ExamQhcp from './components/Exam/ExamQhcp';
+import ExamDha from './components/Exam/ExamDha';
+import ExamOmsp from './components/Exam/ExamOmsp';
+
 
 function App() {
   return (
