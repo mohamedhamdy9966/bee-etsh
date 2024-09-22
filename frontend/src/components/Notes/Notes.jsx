@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';  // Import useNavigate
+import { useNavigate } from 'react-router-dom';
 import './Notes.css';
 
 const Notes = () => {
@@ -9,7 +9,7 @@ const Notes = () => {
 
   useEffect(() => {
     checkLoginStatus();
-  }, []);
+  }, [navigate]);
 
   const checkLoginStatus = () => {
     const token = localStorage.getItem('auth-token');
@@ -48,22 +48,23 @@ const Notes = () => {
           <button onClick={() => handlePdfClick('/Rx-NAPLEX.pdf')}>
             View Work Regulations Notes
           </button>
+
           {selectedPdf ? (
-          <div className="pdf-viewer">
-            <embed
-              src={selectedPdf}
-              title="PDF Viewer"
-              width="100%"
-              height="500px"
-            />
-          </div>
-        ) : (
-          <p>Please select a PDF to view.</p>
-        )}
-      </>
-    ) : (
-      <p>You need to be logged in to view the notes.</p>
-    )}
+            <div className="pdf-viewer">
+              <embed
+                src={selectedPdf}
+                title="PDF Viewer"
+                width="100%"
+                height="500px"
+              />
+            </div>
+          ) : (
+            <p>Please select a PDF to view.</p>
+          )}
+        </>
+      ) : (
+        <p>You need to be logged in to view the notes.</p>
+      )}
     </div>
   );
 };
