@@ -3,7 +3,6 @@ import { useNavigate } from 'react-router-dom';
 import './Notes.css';
 
 const Notes = () => {
-  const [selectedPdf, setSelectedPdf] = useState(null);
   const [loggedIn, setLoggedIn] = useState(false);
   const navigate = useNavigate();
 
@@ -21,46 +20,29 @@ const Notes = () => {
     return true;
   };
 
-  const handlePdfClick = (pdfPath) => {
-    setSelectedPdf(pdfPath);
-  };
-
   return (
     <div className="notes-container">
       {loggedIn ? (
         <>
           <h2>Non Pharma</h2>
-          <button onClick={() => handlePdfClick('/All-non-Pharma.pdf')}>
+          <a href='/All-non-Pharma.pdf' target="_blank" rel="noopener noreferrer">
             View Non Pharma Notes
-          </button>
+          </a>
 
           <h2>Pharma</h2>
-          <button onClick={() => handlePdfClick('/notes.pdf')}>
+          <a href='/notes.pdf' target="_blank" rel="noopener noreferrer">
             View Pharma Notes
-          </button>
+          </a>
 
           <h2>Calculations</h2>
-          <button onClick={() => handlePdfClick('/notes-2.pdf')}>
+          <a href='/notes-2.pdf' target="_blank" rel="noopener noreferrer">
             View Calculations Notes
-          </button>
+          </a>
 
           <h2>Work Regulations</h2>
-          <button onClick={() => handlePdfClick('/Rx-NAPLEX.pdf')}>
+          <a href='/Rx-NAPLEX.pdf' target="_blank" rel="noopener noreferrer">
             View Work Regulations Notes
-          </button>
-
-          {selectedPdf ? (
-            <div className="pdf-viewer">
-              <embed
-                src={selectedPdf}
-                title="PDF Viewer"
-                width="100%"
-                height="500px"
-              />
-            </div>
-          ) : (
-            <p>Please select a PDF to view.</p>
-          )}
+          </a>
         </>
       ) : (
         <p>You need to be logged in to view the notes.</p>
