@@ -11,6 +11,10 @@ import Notes from './components/Notes/Notes';
 import Contact from './components/Contact/Contact';
 import GoogleAd from './components/GoogleAds/GoogleAd';
 import Videos from './components/Videos/Videos';
+import { ExamNhra } from "./components/Exam/ExamNhra";
+import { ExamQhcp } from "./components/Exam/ExamQhcp";
+import { ExamDha } from "./components/Exam/ExamDha";
+import { ExamOmsp } from "./components/Exam/ExamOmsp";
 
 function App() {
   return (
@@ -22,6 +26,10 @@ function App() {
           <Route path='/notes' element={<Notes />} />
           <Route path='/courses' element={<Videos />} />
           <Route path='/exam' element={<Exam />} />
+          <Route path='/examNhra' element={<ExamNhra />} />
+          <Route path='/examQhcp' element={<ExamQhcp />} />
+          <Route path='/examDha' element={<ExamDha />} />
+          <Route path='/examOmsp' element={<ExamOmsp />} />
           <Route path='/quiz' element={<Quiz />} />
           <Route path='/login' element={<SignUpLogin />} />
           <Route path='/contact' element={<Contact />} />

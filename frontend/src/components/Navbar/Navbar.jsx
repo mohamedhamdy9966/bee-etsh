@@ -29,35 +29,42 @@ function CollapsibleExample() {
               <Link to="/courses" className="dropdown-item">Courses</Link>
               <Link to="/quiz" className="dropdown-item">Quiz</Link>
               <NavDropdown.Divider />
-              <Link to="/exam" className="dropdown-item">Exam</Link>
+              <Link to="/examDha" className="dropdown-item">Exam</Link>
             </NavDropdown>
             <NavDropdown title="HAAD" id="collapsible-nav-dropdown">
               <Link to="/notes" className="dropdown-item">Notes</Link>
               <Link to="/courses" className="dropdown-item">Courses</Link>
               <Link to="/quiz" className="dropdown-item">Quiz</Link>
               <NavDropdown.Divider />
-              <Link to="/exam" className="dropdown-item">Exam</Link>
+              <Link to="/examNhra" className="dropdown-item">Exam</Link>
             </NavDropdown>
-            <NavDropdown title="NAHRA" id="collapsible-nav-dropdown">
+            <NavDropdown title="NHRA" id="collapsible-nav-dropdown">
               <Link to="/notes" className="dropdown-item">Notes</Link>
               <Link to="/courses" className="dropdown-item">Courses</Link>
               <Link to="/quiz" className="dropdown-item">Quiz</Link>
               <NavDropdown.Divider />
-              <Link to="/exam" className="dropdown-item">Exam</Link>
+              <Link to="/examNhra" className="dropdown-item">Exam</Link>
             </NavDropdown>
             <NavDropdown title="QCHP" id="collapsible-nav-dropdown">
               <Link to="/notes" className="dropdown-item">Notes</Link>
               <Link to="/courses" className="dropdown-item">Courses</Link>
               <Link to="/quiz" className="dropdown-item">Quiz</Link>
               <NavDropdown.Divider />
-              <Link to="/exam" className="dropdown-item">Exam</Link>
+              <Link to="/examQhcp" className="dropdown-item">Exam</Link>
             </NavDropdown>
             <NavDropdown title="MOH" id="collapsible-nav-dropdown">
               <Link to="/notes" className="dropdown-item">Notes</Link>
               <Link to="/courses" className="dropdown-item">Courses</Link>
               <Link to="/quiz" className="dropdown-item">Quiz</Link>
               <NavDropdown.Divider />
-              <Link to="/exam" className="dropdown-item">Exam</Link>
+              <Link to="/examNhra" className="dropdown-item">Exam</Link>
+            </NavDropdown>
+            <NavDropdown title="OMSP" id="collapsible-nav-dropdown">
+              <Link to="/notes" className="dropdown-item">Notes</Link>
+              <Link to="/courses" className="dropdown-item">Courses</Link>
+              <Link to="/quiz" className="dropdown-item">Quiz</Link>
+              <NavDropdown.Divider />
+              <Link to="/examOmsp" className="dropdown-item">Exam</Link>
             </NavDropdown>
             <NavDropdown title="KAPS" id="collapsible-nav-dropdown">
               <Link to="/notes" className="dropdown-item">Notes</Link>
@@ -74,20 +81,6 @@ function CollapsibleExample() {
               <Link to="/exam" className="dropdown-item">Exam</Link>
             </NavDropdown>
             <NavDropdown title="PEBC" id="collapsible-nav-dropdown">
-              <Link to="/notes" className="dropdown-item">Notes</Link>
-              <Link to="/courses" className="dropdown-item">Courses</Link>
-              <Link to="/quiz" className="dropdown-item">Quiz</Link>
-              <NavDropdown.Divider />
-              <Link to="/exam" className="dropdown-item">Exam</Link>
-            </NavDropdown>
-            <NavDropdown title="Pearson Vue" id="collapsible-nav-dropdown">
-              <Link to="/notes" className="dropdown-item">Notes</Link>
-              <Link to="/courses" className="dropdown-item">Courses</Link>
-              <Link to="/quiz" className="dropdown-item">Quiz</Link>
-              <NavDropdown.Divider />
-              <Link to="/exam" className="dropdown-item">Exam</Link>
-            </NavDropdown>
-            <NavDropdown title="VIVA" id="collapsible-nav-dropdown">
               <Link to="/notes" className="dropdown-item">Notes</Link>
               <Link to="/courses" className="dropdown-item">Courses</Link>
               <Link to="/quiz" className="dropdown-item">Quiz</Link>
