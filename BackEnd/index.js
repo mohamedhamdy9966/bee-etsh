@@ -57,41 +57,40 @@ const Question = mongoose.model("Question", questionSchema);
 
 // Endpoint to add a question
 app.post('/addquestion', async (req, res) => {
-  let questions = await Question.find({});
+  let questions = await Question.find({}).sort({ id: 1 });
   let id;
-  if(questions.length>0)
-  {
-    let last_question_array = questions.slice(-1);
-    let last_question = last_question_array[0];
-    id = last_question.id+1;
+
+  if (questions.length > 0) {
+    let last_question = questions[questions.length - 1];
+    id = last_question.id + 1;
   } else {
-    id=1;
+    id = 1;  // Set id to 1 if no questions exist in the database
   }
+
   try {
-      const question = new Question({
-          id:id,
-          question: req.body.question,
-          image: req.body.image,
-          explanation: req.body.explanation,
-          category: req.body.category,
-          answers: req.body.answers
-      });
+    const question = new Question({
+      id: id,
+      question: req.body.question,
+      image: req.body.image,
+      explanation: req.body.explanation,
+      category: req.body.category,
+      answers: req.body.answers
+    });
 
-      console.log(question);
-      await question.save(); // Changed 'product' to 'question'
-      console.log("Saved");
+    console.log(question);
+    await question.save();
 
-      res.json({
-          success: true,
-          message: "Question added successfully",
-          question: question
-      });
+    res.json({
+      success: true,
+      message: "Question added successfully",
+      question: question
+    });
   } catch (error) {
-      res.status(500).json({
-          success: false,
-          message: "Failed to add question",
-          error: error.message
-      });
+    res.status(500).json({
+      success: false,
+      message: "Failed to add question",
+      error: error.message
+    });
   }
 });
 
