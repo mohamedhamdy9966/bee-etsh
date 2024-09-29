@@ -57,17 +57,17 @@ const Question = mongoose.model("Question", questionSchema);
 
 // Endpoint to add a question
 app.post('/addquestion', async (req, res) => {
-  let questions = await Question.find({}).sort({ id: 1 });
-  let id;
-
-  if (questions.length > 0) {
-    let last_question = questions[questions.length - 1];
-    id = last_question.id + 1;
-  } else {
-    id = 1;  // Set id to 1 if no questions exist in the database
-  }
-
   try {
+    let questions = await Question.find({}).sort({ id: 1 });
+    let id;
+
+    if (questions.length > 0) {
+      let last_question = questions[questions.length - 1];
+      id = Number.isInteger(last_question.id) ? last_question.id + 1 : 1;
+    } else {
+      id = 1;  // Set id to 1 if no questions exist in the database
+    }
+
     const question = new Question({
       id: id,
       question: req.body.question,
