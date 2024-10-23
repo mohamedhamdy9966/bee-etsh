@@ -223,6 +223,7 @@ const Exam = () => {
                             </button>
                             <ProgressBar progress={calculateProgress()} />
                             <Timer duration={examDuration} onFinish={finishExam} />
+                            <Instructions/>
                         </div>
                         {showCalculator && (
                             <div className="calculator-container">
