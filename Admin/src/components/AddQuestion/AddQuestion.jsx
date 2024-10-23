@@ -184,7 +184,7 @@ const AddQuestion = () => {
           <div className="addquestion-itemfield">
             <p>Explanation</p>
             <input 
-              type="text" 
+              type="textarea" 
               name='explanation' 
               placeholder='Type here explanation' 
               value={questionData.explanation}

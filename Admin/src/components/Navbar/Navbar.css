@@ -9,9 +9,11 @@
 }
 .nav-logo {
     width: 200px;
+    border-radius: 50%;
 }
 .nav-profile {
     width: 75px;
+    border-radius: 50%;
 }
 @media (max-width:800px) {
     .navbar{

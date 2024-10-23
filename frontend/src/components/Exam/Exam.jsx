@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect } from 'react';
 import './Exam.css';
 import Calculator from '../Calculator/Calculator';
 import { useNavigate } from 'react-router-dom';
@@ -125,8 +125,11 @@ const Exam = () => {
 
     return (
         <div className="exam-wrapper">
-            {loading ? (
+            {loading || questions.length === 0 ? (
+                <>
+                <Instructions />
                 <Spinner />
+                </>
             ) : !loggedIn ? (
                 <div>
                     <p>You need to be logged in to take the exam. Please <a href="/login">login here</a>.</p>
@@ -136,6 +139,7 @@ const Exam = () => {
                     <h2>Exam Finished</h2>
                     <p>You scored {sofa} out of {questions.length}</p>
                     <button>Congratulations</button>
+                    <button onClick={startExam}>Start Exam</button>
                     {wrongAnsweredQuestions.length > 0 && (
                         <div className="wrong-answers">
                             <h3>The correct Answers For Your Wrong Questions Selected:</h3>
@@ -164,12 +168,7 @@ const Exam = () => {
                         </div>
                     )}
                 </div>
-            ) : questions.length === 0 ? (
-                <>
-                    <Instructions />
-                    <button onClick={startExam}>Start Exam</button>
-                </>
-            ) : (
+            ) :  (
                 <>
                     <SidebarBullets
                         questions={questions}
