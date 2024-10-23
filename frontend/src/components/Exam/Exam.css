@@ -20,6 +20,13 @@
     margin-bottom: 20px;
 }
 
+.first-cover {
+    display: flex;
+    justify-content: center;
+    text-align: center;
+    flex-direction: column;
+}
+
 .bullet-item {
     margin: 5px;
     padding: 10px;

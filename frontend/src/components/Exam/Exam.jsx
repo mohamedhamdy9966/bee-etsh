@@ -126,10 +126,10 @@ const Exam = () => {
     return (
         <div className="exam-wrapper">
             {loading || questions.length === 0 ? (
-                <>
+                <div className='first-cover'>
                 <Instructions />
                 <Spinner />
-                </>
+                </div>
             ) : !loggedIn ? (
                 <div>
                     <p>You need to be logged in to take the exam. Please <a href="/login">login here</a>.</p>
