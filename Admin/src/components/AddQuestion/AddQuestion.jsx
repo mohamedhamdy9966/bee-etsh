@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import './AddQuestion.css';
 import upload_area from '../../assets/images/upload_icon.svg';
 

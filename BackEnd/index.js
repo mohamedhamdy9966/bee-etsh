@@ -19,7 +19,8 @@ const blacklistedTokens = [];
 
 const allowedOrigins = [
   'https://pharmaca.vercel.app',
-  'https://pharmaca-admin.vercel.app'
+  'https://pharmaca-admin.vercel.app',
+  'http://localhost:3000'
 ];
 
 app.use(express.json());

@@ -4,12 +4,15 @@ import Calculator from '../Calculator/Calculator';
 import { useNavigate } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faFlag } from '@fortawesome/free-solid-svg-icons';
+import Instructions from '../instructions/Instructions';
+import Timer from '../timer/Timer';
+import ProgressBar from '../progressBar/ProgressBar';
+import Spinner from '../spinner/Spinner';
 
 const Exam = () => {
     const [questions, setQuestions] = useState([]);
     const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
     const [sofa, setSofa] = useState(0);
-    const [timer, setTimer] = useState(null);
     const [answers, setAnswers] = useState([]);
     const [showCalculator, setShowCalculator] = useState(false);
     const [examFinished, setExamFinished] = useState(false);
@@ -17,12 +20,12 @@ const Exam = () => {
     const [showExplanation, setShowExplanation] = useState({});
     const [flaggedQuestions, setFlaggedQuestions] = useState([]);
     const [loggedIn, setLoggedIn] = useState(false);
+    const [loading, setLoading] = useState(true);
     const examDuration = 7200;
-    const timerElementRef = useRef(null);
-    const answersButtonRef = useRef(null);
     const navigate = useNavigate();
 
     const fetchQuestions = async () => {
+        setLoading(true);
         try {
             const response = await fetch('https://pharmaca-production.up.railway.app/allquestions');
             const data = await response.json();
@@ -31,6 +34,9 @@ const Exam = () => {
             setAnswers(Array(shuffledQuestions.length).fill(null));
         } catch (error) {
             console.error("Error fetching questions:", error);
+            alert("There was an issue loading the questions. Please try again later.");
+        } finally {
+            setLoading(false);
         }
     };
 
@@ -45,52 +51,17 @@ const Exam = () => {
     };
 
     useEffect(() => {
-        if (checkLoginStatus()) {
+        const isLoggedIn = checkLoginStatus();
+        setLoggedIn(isLoggedIn);
+        if (isLoggedIn) {
             fetchQuestions();
         }
-    }, []); // 
+    }, []);
 
-    const ProgressBar = ({ progress }) => {
-        return (
-            <div className="progress-bar">
-                <div
-                    className="progress-bar__fill"
-                    style={{ width: `${progress}%` }}
-                ></div>
-            </div>
-        );
-    };
-    
     const calculateProgress = () => {
         const answeredCount = answers.filter(answer => answer !== null).length;
         return (answeredCount / questions.length) * 100;
     };
-
-    useEffect(() => {
-        if (questions.length > 0 && !timer) {
-            startExam();
-        }
-    }, [questions]); // Start the exam only once when questions are fetched
-
-    useEffect(() => {
-        showQuestion();
-    }, [currentQuestionIndex, questions]);
-
-    useEffect(() => {
-        const handleMouseDown = (event) => {
-            if (event.button === 2) {
-                event.preventDefault();
-                if (event.target.classList.contains('btn')) {
-                    event.target.style.textDecoration = 'line-through';
-                }
-            }
-        };
-
-        document.addEventListener('mousedown', handleMouseDown);
-        return () => {
-            document.removeEventListener('mousedown', handleMouseDown);
-        };
-    }, []);
 
     const shuffle = (array) => {
         for (let i = array.length - 1; i > 0; i--) {
@@ -105,71 +76,10 @@ const Exam = () => {
         setSofa(0);
         setExamFinished(false);
         setShowCalculator(false);
-        if (!timer) { // Ensure the timer only starts once
-            startTimer();
-        }
-    };
-
-    const startTimer = () => {
-        let timeRemaining = examDuration;
-        const interval = setInterval(() => {
-            const hours = Math.floor(timeRemaining / 3600);
-            const minutes = Math.floor((timeRemaining % 3600) / 60);
-            const seconds = timeRemaining % 60;
-    
-            if (timerElementRef.current) {
-                timerElementRef.current.innerHTML = `<i class="fa-solid fa-clock"></i> Section Time Remaining: ${formatTime(hours)}:${formatTime(minutes)}:${formatTime(seconds)}`;
-            }
-    
-            if (timeRemaining <= 0) {
-                clearInterval(interval);
-                finishExam();
-            }
-    
-            timeRemaining--;
-        }, 1000);
-    
-        setTimer(interval);
-    };
-
-    const formatTime = (time) => time < 10 ? `0${time}` : time;
-
-    const showQuestion = () => {
-        if (questions.length === 0) return;
-
-        const currentQuestion = questions[currentQuestionIndex];
-        if (currentQuestion) {
-            const questionElement = document.getElementById("question");
-            questionElement.innerHTML = `${currentQuestionIndex + 1}. ${currentQuestion.question}`;
-
-            if (currentQuestion.image) {
-                const imageElement = document.createElement("img");
-                imageElement.src = currentQuestion.image;
-                imageElement.classList.add("question-image");
-                questionElement.appendChild(imageElement);
-            }
-
-            const answersButton = answersButtonRef.current;
-            answersButton.innerHTML = "";
-
-            currentQuestion.answers.forEach((answer, index) => {
-                const button = document.createElement("button");
-                button.innerHTML = answer.text;
-                button.classList.add("btn");
-                button.dataset.correct = answer.correct ? "true" : "false";
-
-                if (index === answers[currentQuestionIndex]) {
-                    button.classList.add("selected-answer");
-                }
-
-                button.addEventListener("click", () => selectAnswer(index));
-                answersButton.appendChild(button);
-
-                if (answers[currentQuestionIndex] !== null) {
-                    button.disabled = true;
-                }
-            });
-        }
+        setAnswers(Array(questions.length).fill(null));
+        setWrongAnsweredQuestions([]);
+        setFlaggedQuestions([]);
+        setShowExplanation({});
     };
 
     const selectAnswer = (selectedIndex) => {
@@ -179,15 +89,7 @@ const Exam = () => {
             return updatedAnswers;
         });
 
-        const answerButtons = Array.from(answersButtonRef.current.children);
-
-        answerButtons.forEach(button => button.classList.remove("selected-answer"));
-
-        answerButtons[selectedIndex].classList.add("selected-answer");
-
-        answerButtons.forEach(button => button.disabled = true);
-
-        const isCorrect = answerButtons[selectedIndex].dataset.correct === "true";
+        const isCorrect = questions[currentQuestionIndex].answers[selectedIndex].correct;
         if (isCorrect) {
             setSofa(prevSofa => prevSofa + 1);
         } else {
@@ -209,11 +111,8 @@ const Exam = () => {
             }
         });
     };
-    
+
     const finishExam = () => {
-        if (timer) {
-            clearInterval(timer);
-        }
         setExamFinished(true);
     };
 
@@ -226,7 +125,13 @@ const Exam = () => {
 
     return (
         <div className="exam-wrapper">
-            {examFinished ? (
+            {loading ? (
+                <Spinner />
+            ) : !loggedIn ? (
+                <div>
+                    <p>You need to be logged in to take the exam. Please <a href="/login">login here</a>.</p>
+                </div>
+            ) : examFinished ? (
                 <div className="exam-results">
                     <h2>Exam Finished</h2>
                     <p>You scored {sofa} out of {questions.length}</p>
@@ -260,66 +165,65 @@ const Exam = () => {
                     )}
                 </div>
             ) : questions.length === 0 ? (
-                <div class="instructions">
-                    <ul>
-                <li>
-                    لتغيير اختبار النموذج، يمكنك إغلاق موقع الويب ثم إغلاق المتصفح وفتح المتصفح مرة أخرى وإعادة زيارة موقع الويب
-                </li>
-                <li>
-                لإجراء العمليات الحسابية بامكانك استخدام الاله الحاسبة بالضغط على زر لاظهارها او الضغط عليها مرة اخرى لاخفائها
-                </li>
-                <li>
-                لتقوم بالشطب على الاجابة التي تريدها بامكانك الضغط على الجهة اليمنى من الفأرة
-                </li>
-                <li>
-                يمكنك التنقل بين الأسئلة عن طريق الضغط على الزر أسفل الاختبار (التالي ) و ( السابق ) 
-                </li>
-                <li>
-                يمكنك أن تضغط على زر ( العلم) لوضع علامة مميزة على السؤال المراد
-                </li>
-                <li>
-                    الإختبار عبارة عن 105 سؤال في زمن ساعتين و لا يمكن إيقاف الوقت او اخذ استراحة بمجرد بدء الإختبار
-                </li>
-                <li>
-                    يمكنك التنقل بين الأسئلة عن طريق الشريط الجانبي في يسار الشاشة
-                </li>
-                <li>
-                لإنهاء الإختبار و تصفح درجتك النهائية بإمكانك الضغط على زر (Finish Section)                  
-                </li>           
-                <li>
-                لإعادة نفس نموذج الإختبار مرة أخرى بإمكانك الضغط على زر (Try Again ) 
-                </li>
-                </ul>
-                <button className="btn btn-primary">Read The Instructions Carefully , Please. And The Exam Will Start In Seconds</button>
-                </div>
+                <>
+                    <Instructions />
+                    <button onClick={startExam}>Start Exam</button>
+                </>
             ) : (
                 <>
-                <SidebarBullets 
-                        questions={questions} 
-                        currentQuestionIndex={currentQuestionIndex} 
+                    <SidebarBullets
+                        questions={questions}
+                        currentQuestionIndex={currentQuestionIndex}
                         setCurrentQuestionIndex={setCurrentQuestionIndex}
                         answers={answers}
                         flaggedQuestions={flaggedQuestions}
                     />
-                    <div className="exam-content"><div id="question"></div><div id="answer_btn" ref={answersButtonRef}></div>
-                    <div id="navigation_buttons" style={{ display: 'flex', justifyContent: 'space-between' }}>
-                        <button id="previous_btn" style={{ display: 'inline-block', padding: '10px 20px' }} onClick={() => setCurrentQuestionIndex(prev => Math.max(prev - 1, 0))}>
+                    <div className="exam-content">
+                        <div className="question">
+                            <p>{currentQuestionIndex + 1}. {questions[currentQuestionIndex]?.question}</p>
+                            {questions[currentQuestionIndex]?.image && (
+                                <img src={questions[currentQuestionIndex].image} alt="question visual" className="question-image" />
+                            )}
+                        </div>
+                        <div className="answer_btn">
+                            {questions[currentQuestionIndex]?.answers.map((answer, index) => (
+                                <button
+                                    key={index}
+                                    className={`btn ${answers[currentQuestionIndex] === index ? "selected-answer" : ""}`}
+                                    onClick={() => selectAnswer(index)}
+                                    disabled={answers[currentQuestionIndex] !== null}
+                                >
+                                    {answer.text}
+                                </button>
+                            ))}
+                        </div>
+                        <div id="navigation_buttons">
+                            <button
+                                className="previous_btn"
+                                onClick={() => setCurrentQuestionIndex(prev => Math.max(prev - 1, 0))}
+                            >
                                 Previous
                             </button>
-                            <button id="finish_btn" style={{ display: 'inline-block', padding: '10px 20px' }} onClick={finishExam}>
+                            <button className="finish_btn" onClick={finishExam}>
                                 Finish
                             </button>
-                            <button id='flag_btn' style={{ display: 'inline-block', padding: '10px 20px' }} onClick={flagQuestion}>
-                                {flaggedQuestions.includes(currentQuestionIndex) ? 'Un Flag' : 'Flag'}
+                            <button className="flag_btn" onClick={flagQuestion}>
+                                {flaggedQuestions.includes(currentQuestionIndex) ? 'Unflag' : 'Flag'}
                             </button>
-                            <button id="next_btn" style={{ display: 'inline-block', padding: '10px 20px' }} onClick={() => setCurrentQuestionIndex(prev => Math.min(prev + 1, questions.length - 1))}>
+                            <button
+                                id="next_btn"
+                                onClick={() => setCurrentQuestionIndex(prev => Math.min(prev + 1, questions.length - 1))}
+                            >
                                 Next
                             </button>
-                            <button id="toggleCalculator_btn" style={{ display: 'inline-block', padding: '10px 20px' }} onClick={() => setShowCalculator(prev => !prev)}>
+                            <button
+                                className="toggleCalculator_btn"
+                                onClick={() => setShowCalculator(prev => !prev)}
+                            >
                                 {showCalculator ? 'Hide Calculator' : 'Show Calculator'}
                             </button>
                             <ProgressBar progress={calculateProgress()} />
-                            <div ref={timerElementRef} id="timer"></div>
+                            <Timer duration={examDuration} onFinish={finishExam} />
                         </div>
                         {showCalculator && (
                             <div className="calculator-container">
@@ -331,28 +235,27 @@ const Exam = () => {
             )}
         </div>
     );
-    };
-    
-    const SidebarBullets = ({ questions, currentQuestionIndex, setCurrentQuestionIndex, answers = [], flaggedQuestions }) => {
-        return (
-            <div className="sidebar">
-                {questions.map((_, index) => {
-                    const isAnswered = answers[index] !== null;
-                    const isFlagged = flaggedQuestions.includes(index); // Check if the question is flagged
-                    return (
-                        <div 
-                            key={index}
-                            className={`bullet-item ${index === currentQuestionIndex ? 'on' : ''} ${isAnswered ? 'answered' : ''}`}
-                            onClick={() => setCurrentQuestionIndex(index)}
-                        >
-                            {index + 1}
-                            {isFlagged && <FontAwesomeIcon icon={faFlag} className="flag-icon" />} {/* Conditionally render flag icon */}
-                        </div>
-                    );
-                })}
-            </div>
-        );
-    };
-    
-    
-    export default Exam;
+};
+
+const SidebarBullets = ({ questions, currentQuestionIndex, setCurrentQuestionIndex, answers = [], flaggedQuestions }) => {
+    return (
+        <div className="sidebar">
+            {questions.map((_, index) => {
+                const isAnswered = answers[index] !== null;
+                const isFlagged = flaggedQuestions.includes(index);
+                return (
+                    <div
+                        key={index}
+                        className={`bullet-item ${index === currentQuestionIndex ? 'on' : ''} ${isAnswered ? 'answered' : ''}`}
+                        onClick={() => setCurrentQuestionIndex(index)}
+                    >
+                        {index + 1}
+                        {isFlagged && <FontAwesomeIcon icon={faFlag} className="flag-icon" />}
+                    </div>
+                );
+            })}
+        </div>
+    );
+};
+
+export default Exam;
