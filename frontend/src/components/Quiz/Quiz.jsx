@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import './Quiz.css';
+import Spinner from '../spinner/Spinner';
 
 const Quiz = () => {
     const [questions, setQuestions] = useState([]);
@@ -10,6 +11,7 @@ const Quiz = () => {
     const answersButtonRef = useRef(null);
     const navigate = useNavigate();
     const [showExplanation, setShowExplanation] = useState(false);
+    const [loading, setLoading] = useState(true);
 
     useEffect(() => {
         checkLoginStatus();
@@ -27,6 +29,7 @@ const Quiz = () => {
     };
 
     const fetchQuestions = async () => {
+        setLoading(true);
         try {
             const response = await fetch('https://pharmaca-production.up.railway.app/allquestions');
             const data = await response.json();
@@ -41,6 +44,8 @@ const Quiz = () => {
             setSelectedAnswers(new Array(formattedQuestions.length).fill(null));
         } catch (error) {
             console.error('Failed to fetch questions:', error);
+        } finally {
+            setLoading(false);
         }
     };
 
@@ -133,7 +138,8 @@ const Quiz = () => {
 
     return (
         <div className="quiz-wrapper">
-            {loggedIn ? (
+            { loading ? 
+            <Spinner/> : loggedIn ? (
                 <div className="quiz-container">
                     {questions.length > 0 && showQuestion()}
 

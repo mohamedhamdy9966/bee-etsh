@@ -21,7 +21,7 @@ const Exam = () => {
     const [flaggedQuestions, setFlaggedQuestions] = useState([]);
     const [loggedIn, setLoggedIn] = useState(false);
     const [loading, setLoading] = useState(true);
-    const examDuration = 20;
+    const examDuration = 7200;
     const navigate = useNavigate();
 
     const fetchQuestions = async () => {
@@ -138,7 +138,7 @@ const Exam = () => {
                     <h2>Exam Finished</h2>
                     <p>You scored {sofa} out of {questions.length}</p>
                     <div className='btn'>Congratulations</div>
-                    <button onClick={startExam}>Start Exam</button>
+                    <button onClick={startExam}>Start Exam Again</button>
                     {wrongAnsweredQuestions.length > 0 && (
                         <div className="wrong-answers">
                             <h3>The correct Answers For Your Wrong Questions Selected:</h3>
