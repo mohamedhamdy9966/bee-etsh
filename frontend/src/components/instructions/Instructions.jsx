@@ -33,7 +33,7 @@ const Instructions = () => {
                 لإعادة نفس نموذج الإختبار مرة أخرى بإمكانك الضغط على زر (Try Again ) 
                 </li>
                 </ul>
-                <button className="btn btn-primary">Read The Instructions Carefully , Please.</button>
+                <button className="btn btn-primary">Read The Instructions Carefully , Please. And The Exam Will Start In Seconds</button>
                 </div>
   )
 }

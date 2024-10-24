@@ -21,7 +21,7 @@ const Exam = () => {
     const [flaggedQuestions, setFlaggedQuestions] = useState([]);
     const [loggedIn, setLoggedIn] = useState(false);
     const [loading, setLoading] = useState(true);
-    const examDuration = 7200;
+    const examDuration = 20;
     const navigate = useNavigate();
 
     const fetchQuestions = async () => {
@@ -52,7 +52,6 @@ const Exam = () => {
 
     useEffect(() => {
         const isLoggedIn = checkLoginStatus();
-        setLoggedIn(isLoggedIn);
         if (isLoggedIn) {
             fetchQuestions();
         }
@@ -138,7 +137,7 @@ const Exam = () => {
                 <div className="exam-results">
                     <h2>Exam Finished</h2>
                     <p>You scored {sofa} out of {questions.length}</p>
-                    <button>Congratulations</button>
+                    <div className='btn'>Congratulations</div>
                     <button onClick={startExam}>Start Exam</button>
                     {wrongAnsweredQuestions.length > 0 && (
                         <div className="wrong-answers">
@@ -168,7 +167,7 @@ const Exam = () => {
                         </div>
                     )}
                 </div>
-            ) :  (
+            ) : (
                 <>
                     <SidebarBullets
                         questions={questions}
@@ -223,7 +222,6 @@ const Exam = () => {
                             </button>
                             <ProgressBar progress={calculateProgress()} />
                             <Timer duration={examDuration} onFinish={finishExam} />
-                            <Instructions/>
                         </div>
                         {showCalculator && (
                             <div className="calculator-container">
