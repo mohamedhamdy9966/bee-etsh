@@ -139,7 +139,12 @@ const Quiz = () => {
     return (
         <div className="quiz-wrapper">
             { loading ? 
-            <Spinner/> : loggedIn ? (
+            <>
+            <div className='btn'>
+                Your Quiz is Loading ...
+            </div>
+            <Spinner/>
+            </> : loggedIn ? (
                 <div className="quiz-container">
                     {questions.length > 0 && showQuestion()}
 
