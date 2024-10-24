@@ -48,7 +48,7 @@ const Home = () => {
           </Carousel.Caption>
         </Carousel.Item>
       </Carousel>
-      <EmailSubscribe/>
+      {/* <EmailSubscribe/> */}
       <Carousel>
         <Carousel.Item>
         <div className="carousel-section">
