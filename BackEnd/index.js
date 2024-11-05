@@ -7,8 +7,6 @@ const mongoose = require("mongoose");
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcryptjs");
 const cors = require("cors");
-const multer = require('multer');
-const upload = multer({ storage: multer.memoryStorage() });
 const path = require("path");
 const nodemailer = require('nodemailer');
 
@@ -175,8 +173,6 @@ mongoose.connect(process.env.MONGODB_URI, {
 }).catch((error) => {
   console.log("MongoDB connection error:", error);
 });
-
-const storage = multer.memoryStorage();
 
 // Define the User model
 const userSchema = new mongoose.Schema({
