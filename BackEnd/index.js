@@ -7,7 +7,8 @@ const mongoose = require("mongoose");
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcryptjs");
 const cors = require("cors");
-const multer = require("multer");
+const multer = require('multer');
+const upload = multer({ storage: multer.memoryStorage() });
 const path = require("path");
 const { type } = require('os');
 const nodemailer = require('nodemailer');
@@ -183,8 +184,6 @@ const storage = multer.diskStorage({
     return cb(null, `${file.fieldname}_${Date.now()}${path.extname(file.originalname)}`);
   }
 });
-
-const upload = multer({ storage: storage });
 
 // Endpoint for serving images
 app.use('/Images', express.static('upload/Images'));
