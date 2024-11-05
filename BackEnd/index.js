@@ -1,4 +1,6 @@
-require('dotenv').config();
+if (process.env.NODE_ENV !== 'production') {
+  require('dotenv').config();
+}
 
 const express = require("express");
 const mongoose = require("mongoose");
@@ -99,22 +101,23 @@ const transporter = nodemailer.createTransport({
   }
 });
 
-const testEmail = async () => {
-  try {
-    const info = await transporter.sendMail({
-      from: process.env.EMAIL_USER,
-      to: 'mh7008006@gmail.com',
-      subject: 'Test Email',
-      text: 'This is a test email sent from Node.js server.'
-    });
-
-    console.log('Test email sent:', info.response);
-  } catch (error) {
-    console.error('Error sending test email:', error);
-  }
-};
-
-testEmail();
+// Test Email (for development)
+if (process.env.NODE_ENV !== 'production') {
+  const testEmail = async () => {
+    try {
+      const info = await transporter.sendMail({
+        from: process.env.EMAIL_USER,
+        to: 'mh7008005@gmail.com',
+        subject: 'Test Email',
+        text: 'This is a test email sent from Node.js server.'
+      });
+      console.log('Test email sent:', info.response);
+    } catch (error) {
+      console.error('Error sending test email:', error);
+    }
+  };
+  testEmail();
+}
 
 app.post('/sendmail', (req, res) => {
   const { name, email, message } = req.body;
@@ -265,12 +268,6 @@ app.post('/login', async (req, res) => {
     res.status(500).json({ success: false, errors: "Server error" });
   }
 });
-
-// Start the server
-if (process.env.NODE_ENV !== 'production') {
-  app.listen(port, () => console.log(`Server running on port ${port}`));
-}
-
 
 app.get('/protected-route', fetchUser, (req, res) => {
   res.json({ success: true, message: "Access granted to protected resource" });
