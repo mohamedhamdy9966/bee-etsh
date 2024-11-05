@@ -10,7 +10,6 @@ const cors = require("cors");
 const multer = require('multer');
 const upload = multer({ storage: multer.memoryStorage() });
 const path = require("path");
-const { type } = require('os');
 const nodemailer = require('nodemailer');
 
 
@@ -177,24 +176,7 @@ mongoose.connect(process.env.MONGODB_URI, {
   console.log("MongoDB connection error:", error);
 });
 
-// Image Upload Configurations
-const storage = multer.diskStorage({
-  destination: './upload/Images',
-  filename: (req, file, cb) => {
-    return cb(null, `${file.fieldname}_${Date.now()}${path.extname(file.originalname)}`);
-  }
-});
-
-// Endpoint for serving images
-app.use('/Images', express.static('upload/Images'));
-
-// Image upload endpoint
-app.post("/upload", upload.single('image'), (req, res) => {
-  res.json({
-    success: 1,
-    image_url: `/Images/${req.file.filename}`
-  });
-});
+const storage = multer.memoryStorage();
 
 // Define the User model
 const userSchema = new mongoose.Schema({
