@@ -289,7 +289,7 @@ app.use(
   helmet.contentSecurityPolicy({
     directives: {
       defaultSrc: ["'self'"],
-      scriptSrc: ["'self'", "https://vercel.live"],
+      scriptSrc: ["'self'", "https://vercel.live", "'unsafe-inline'"],  // Add 'https://vercel.live' here
       // Add other CSP directives as needed
     },
   })
