@@ -26,15 +26,9 @@ const allowedOrigins = [
 app.use(express.json());
 
 app.use(cors({
-  origin: function (origin, callback) {
-    // Allow requests with no origin (like mobile apps or curl requests)
-    if (!origin) return callback(null, true);
-    if (allowedOrigins.indexOf(origin) !== -1) {
-      callback(null, true);
-    } else {
-      callback(new Error('Not allowed by CORS'));
-    }
-  }
+  origin: ["https://pharmaca.vercel.app", "https://pharmaca-admin.vercel.app"],
+  methods: ["POST", "GET"],
+  credentials: true
 }));
 
 // Define the Question schema
@@ -78,7 +72,6 @@ app.post('/addquestion', async (req, res) => {
       answers: req.body.answers
     });
 
-    console.log(question);
     await question.save();
 
     res.json({
@@ -197,7 +190,7 @@ app.use('/Images', express.static('upload/Images'));
 app.post("/upload", upload.single('image'), (req, res) => {
   res.json({
     success: 1,
-    image_url: `https://pharmaca-production.up.railway.app:${port}/Images/${req.file.filename}`
+    image_url: `/Images/${req.file.filename}`
   });
 });
 
@@ -274,13 +267,10 @@ app.post('/login', async (req, res) => {
 });
 
 // Start the server
-app.listen(port, (error) => {
-  if (!error) {
-    console.log("Server running on port " + port);
-  } else {
-    console.log("Error: " + error);
-  }
-});
+if (process.env.NODE_ENV !== 'production') {
+  app.listen(port, () => console.log(`Server running on port ${port}`));
+}
+
 
 app.get('/protected-route', fetchUser, (req, res) => {
   res.json({ success: true, message: "Access granted to protected resource" });

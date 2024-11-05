@@ -1,0 +1,126 @@
+/* Global Styles */
+body, html {
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
+    box-sizing: border-box;
+  }
+  
+  /* Container for list of users */
+  .list-question {
+    padding: 20px;
+    margin: 0 auto;
+    max-width: 1200px;
+    text-align: center;
+  }
+  
+  .list-question h2 {
+    font-size: 2rem;
+    margin-bottom: 20px;
+    color: #333;
+  }
+  
+  /* Header format for user list */
+  .listquestion-format-main {
+    display: flex;
+    justify-content: space-around;
+    background-color: #f5f5f5;
+    padding: 10px;
+    font-weight: bold;
+    color: #555;
+  }
+  
+  .listquestion-format-main p {
+    flex: 1;
+    margin: 0;
+    padding: 5px;
+    text-align: center;
+  }
+  
+  /* User list styling */
+  .listquestion-allquestions {
+    margin-top: 20px;
+  }
+  
+  .listquestion-format {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    padding: 10px;
+    border-bottom: 1px solid #ddd;
+  }
+  
+  .listquestion-format p {
+    flex: 1;
+    margin: 0;
+    padding: 5px;
+    text-align: center;
+    word-break: break-word; /* Prevent text overflow */
+  }
+  
+  /* Remove icon styling */
+  .listquestion-remove-icon {
+    cursor: pointer;
+    width: 20px;
+    height: 20px;
+    transition: transform 0.2s ease;
+  }
+  
+  .listquestion-remove-icon:hover {
+    transform: scale(1.2);
+  }
+  
+  /* Add spacing between rows */
+  .listquestion-format:not(:last-child) {
+    margin-bottom: 10px;
+  }
+  
+  /* Media queries for responsiveness */
+  
+  /* Medium screen sizes (tablets) */
+  @media (max-width: 768px) {
+    .listquestion-format-main p,
+    .listquestion-format p {
+      font-size: 0.9rem;
+      padding: 10px;
+    }
+  
+    .list-question {
+      padding: 10px;
+    }
+  }
+  
+  /* Small screen sizes (mobile) */
+  @media (max-width: 480px) {
+    .listquestion-format-main,
+    .listquestion-format {
+      flex-direction: column;
+      padding: 10px;
+    }
+  
+    .listquestion-format-main p,
+    .listquestion-format p {
+      text-align: left;
+      font-size: 0.8rem;
+      padding: 5px;
+    }
+  
+    .listquestion-format-main p {
+      font-weight: bold;
+    }
+  
+    .listquestion-remove-icon {
+      width: 25px;
+      height: 25px;
+      margin-top: 10px;
+    }
+  
+    .list-question {
+      padding: 5px;
+    }
+  
+    h2 {
+      font-size: 1.5rem;
+    }
+  }
+  

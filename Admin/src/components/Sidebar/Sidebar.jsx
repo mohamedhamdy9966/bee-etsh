@@ -1,4 +1,3 @@
-import React from 'react'
 import './Sidebar.css'
 import {Link} from 'react-router-dom'
 import add_question_icon from '../../assets/images/addquestion.png'
@@ -17,6 +16,12 @@ const Sidebar = () => {
       <div className="sidebar-item">
         <img src={list_question_icon} alt="list question icon" />
         <p>List Question</p>
+      </div>
+      </Link>
+      <Link to={'/listusers'} style={{textDecoration:"none"}}>
+      <div className="sidebar-item">
+        <img src={list_question_icon} alt="list-question-user" />
+        <p>List Users</p>
       </div>
       </Link>
     </div>

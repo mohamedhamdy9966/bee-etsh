@@ -156,7 +156,7 @@ export const SignUpLogin = () => {
               className="eye-icon" 
               onClick={togglePasswordVisibility}
             >
-              {passwordVisible ? "👁️" : "👁️‍🗨️"} {/* Eye icon */}
+              {passwordVisible ? "👁️‍🗨️" : "👁️"} {/* Eye icon */}
             </span>
           </div>
         </div>

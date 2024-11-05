@@ -1,4 +1,5 @@
-import React from 'react'
+import {useEffect, useState} from 'react'
+import cross_icon from '../../assets/images/cross-icon.png';
 import 'ListUsers.css'
 
 const ListUsers = () => {
@@ -53,4 +54,4 @@ const ListUsers = () => {
     );
 }
 
-export default ListUsers
+export default ListUsers;
