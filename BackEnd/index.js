@@ -50,7 +50,7 @@ const questionSchema = new mongoose.Schema({
 });
 
 // Define the Question model
-const Question = mongoose.model("Question", questionSchema);
+const Question = mongoose.models.Question || mongoose.model('Question', questionSchema);
 
 // Endpoint to add a question
 app.post('/addquestion', async (req, res) => {
