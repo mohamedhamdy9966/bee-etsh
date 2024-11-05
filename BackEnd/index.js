@@ -184,7 +184,7 @@ const userSchema = new mongoose.Schema({
   }
 });
 
-const Users = mongoose.model("Users", userSchema);
+const Users = mongoose.models.Users || mongoose.model("Users", userSchema);
 
 // Endpoint for user signup
 app.post('/signup', async (req, res) => {
