@@ -283,4 +283,17 @@ app.post('/removequestion', async (req, res) => {
   }
 });
 
+const helmet = require("helmet");
+
+app.use(
+  helmet.contentSecurityPolicy({
+    directives: {
+      defaultSrc: ["'self'"],
+      scriptSrc: ["'self'", "https://vercel.live"],
+      // Add other CSP directives as needed
+    },
+  })
+);
+
+
 module.exports = app;
