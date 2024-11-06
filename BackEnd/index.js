@@ -38,11 +38,12 @@ const allowedOrigins = [
 app.use(express.json());
 
 app.use(cors({
-  origin: ["*"],
+  origin: ["https://pharmaca.vercel.app", "http://localhost:3000"],
   methods: ["POST", "GET"],
   allowedHeaders: ["Content-Type", "Authorization"],
   credentials: true
 }));
+
 
 
 // Define the Question schema
