@@ -9,11 +9,23 @@ const bcrypt = require("bcryptjs");
 const cors = require("cors");
 const path = require("path");
 const nodemailer = require('nodemailer');
+const helmet = require("helmet");
 
 
 
 const app = express();
 const port = process.env.PORT || 4000;
+
+app.use(
+  helmet.contentSecurityPolicy({
+    directives: {
+      defaultSrc: ["'self'"],
+      scriptSrc: ["'self'", "https://vercel.live", "'unsafe-inline'"],
+      scriptSrcElem: ["'self'", "https://vercel.live", "'unsafe-inline'"], // Add 'https://vercel.live' here for script elements
+      connectSrc: ["'self'", "https://vercel.live"], // If the feedback script needs to establish WebSocket connections
+    },
+  })
+);
 
 const blacklistedTokens = [];
 
@@ -282,19 +294,5 @@ app.post('/removequestion', async (req, res) => {
     });
   }
 });
-
-const helmet = require("helmet");
-
-app.use(
-  helmet.contentSecurityPolicy({
-    directives: {
-      defaultSrc: ["'self'"],
-      scriptSrc: ["'self'", "https://vercel.live", "'unsafe-inline'"], // Add 'https://vercel.live' here
-      scriptSrcElem: ["'self'", "https://vercel.live"],  // Specify allowed sources for script elements
-      // Add other CSP directives as needed
-    },
-  })
-);
-
 
 module.exports = app;
