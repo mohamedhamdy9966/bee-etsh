@@ -19,12 +19,10 @@ const port = process.env.PORT || 4000;
 app.use(
   helmet.contentSecurityPolicy({
     directives: {
-      defaultSrc: ["'self'", "https://vercel.live", "https://vercel.live/_next-live/feedback/feedback.js"],
-      scriptSrc: ["'self'", "https://vercel.live", "https://vercel.live/_next-live/feedback/feedback.js", "'unsafe-inline'"],
-      scriptSrcElem: ["'self'", "https://vercel.live", "https://vercel.live/_next-live/feedback/feedback.js", "'unsafe-inline'"],
-      connectSrc: ["'self'", "https://vercel.live"], // Allows WebSocket connections if needed
-      // Add other directives as necessary for styles, images, etc.
-    },
+      defaultSrc: ["'none'"],
+      scriptSrc: ["'self'", "https://vercel.live"],
+      // Add other directives as necessary, e.g., for styles, images, etc.
+    }
   })
 );
 
