@@ -19,12 +19,13 @@ const port = process.env.PORT || 4000;
 app.use(
   helmet.contentSecurityPolicy({
     directives: {
-      defaultSrc: ["'none'"],            // Disallow all sources by default
-      scriptSrc: ["'self'", "https://vercel.live"], // Allow scripts only from 'self' and vercel.live
-      // Add other directives for styles, images, etc., as needed
+      defaultSrc: ["'none'"],
+      scriptSrc: ["'self'", "https://vercel.live"],
+      connectSrc: ["'self'", "https://pharmaca-backend.vercel.app"],
     },
   })
 );
+
 
 const blacklistedTokens = [];
 
@@ -39,8 +40,10 @@ app.use(express.json());
 app.use(cors({
   origin: ["https://pharmaca.vercel.app", "https://pharmaca-admin.vercel.app"],
   methods: ["POST", "GET"],
+  allowedHeaders: ["Content-Type", "Authorization"],
   credentials: true
 }));
+
 
 // Define the Question schema
 const questionSchema = new mongoose.Schema({
