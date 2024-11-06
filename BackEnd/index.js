@@ -38,7 +38,7 @@ const allowedOrigins = [
 app.use(express.json());
 
 app.use(cors({
-  origin: ["https://pharmaca.vercel.app", "https://pharmaca-admin.vercel.app"],
+  origin: ["*"],
   methods: ["POST", "GET"],
   allowedHeaders: ["Content-Type", "Authorization"],
   credentials: true
