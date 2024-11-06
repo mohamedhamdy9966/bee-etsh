@@ -19,10 +19,10 @@ const port = process.env.PORT || 4000;
 app.use(
   helmet.contentSecurityPolicy({
     directives: {
-      defaultSrc: ["'none'"],
-      scriptSrc: ["'self'", "https://vercel.live"],
-      // Add other directives as necessary, e.g., for styles, images, etc.
-    }
+      defaultSrc: ["'none'"],            // Disallow all sources by default
+      scriptSrc: ["'self'", "https://vercel.live"], // Allow scripts only from 'self' and vercel.live
+      // Add other directives for styles, images, etc., as needed
+    },
   })
 );
 
