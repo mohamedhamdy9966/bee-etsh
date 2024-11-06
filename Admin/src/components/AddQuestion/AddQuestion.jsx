@@ -54,7 +54,7 @@ const AddQuestion = () => {
       let responseData;
 
       // Fetch image upload
-      const uploadResponse = await fetch('https://pharmaca-production.up.railway.app/upload', {
+      const uploadResponse = await fetch('https://pharmaca-backend.vercel.app/upload', {
         method: 'POST',
         body: formData,
       });
@@ -87,7 +87,7 @@ const AddQuestion = () => {
           delete question.correctAnswerIndex;
 
           // Send the question data to the server
-          const addQuestionResponse = await fetch('https://pharmaca-production.up.railway.app/addquestion', {
+          const addQuestionResponse = await fetch('https://pharmaca-backend.vercel.app/addquestion', {
             method: 'POST',
             headers: {
               Accept: 'application/json',

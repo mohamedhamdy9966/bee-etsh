@@ -33,7 +33,7 @@ const Contact = () => {
     const formErrors = validate();
     if (Object.keys(formErrors).length === 0) {
       try {
-        const response = await fetch('https://pharmaca-production.up.railway.app/sendmail', {
+        const response = await fetch('https://pharmaca-backend.vercel.app/sendmail', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
