@@ -54,7 +54,7 @@ const AddQuestion = () => {
       let responseData;
 
       // Fetch image upload
-      const uploadResponse = await fetch('https://pharmaca-backend.vercel.app/upload', {
+      const uploadResponse = await fetch('https://pharmaca-demo-backend.onrender.com/upload', {
         method: 'POST',
         body: formData,
       });
@@ -87,7 +87,7 @@ const AddQuestion = () => {
           delete question.correctAnswerIndex;
 
           // Send the question data to the server
-          const addQuestionResponse = await fetch('https://pharmaca-backend.vercel.app/addquestion', {
+          const addQuestionResponse = await fetch('https://pharmaca-demo-backend.onrender.com/addquestion', {
             method: 'POST',
             headers: {
               Accept: 'application/json',

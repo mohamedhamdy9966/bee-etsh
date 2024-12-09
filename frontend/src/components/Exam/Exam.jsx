@@ -27,7 +27,7 @@ const Exam = () => {
     const fetchQuestions = async () => {
         setLoading(true);
         try {
-            const response = await fetch('https://pharmaca-backend.vercel.app/allquestions');
+            const response = await fetch('https://pharmaca-demo-backend.onrender.com/allquestions');
             const data = await response.json();
             const shuffledQuestions = shuffle(data).slice(0, 105);
             setQuestions(shuffledQuestions);

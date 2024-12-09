@@ -31,7 +31,7 @@ const Quiz = () => {
     const fetchQuestions = async () => {
         setLoading(true);
         try {
-            const response = await fetch('https://pharmaca-backend.vercel.app/allquestions');
+            const response = await fetch('https://pharmaca-demo-backend.onrender.com/allquestions');
             const data = await response.json();
             const shuffledQuestions = shuffleArray(data);
             const formattedQuestions = shuffledQuestions.map(question => ({

@@ -56,7 +56,7 @@ export const SignUpLogin = () => {
     setLoading(true);
     setErrors(null);
     try {
-      const response = await fetch('https://pharmaca-backend.vercel.app/login', {
+      const response = await fetch('https://pharmaca-demo-backend.onrender.com/login', {
         method: 'POST',
         headers: {
           Accept: 'application/json',
@@ -83,7 +83,7 @@ export const SignUpLogin = () => {
     setLoading(true);
     setErrors(null);
     try {
-      const response = await fetch('https://pharmaca-backend.vercel.app/signup', {
+      const response = await fetch('https://pharmaca-demo-backend.onrender.com/signup', {
         method: 'POST',
         headers: {
           Accept: 'application/json',

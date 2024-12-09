@@ -15,13 +15,13 @@ const ListQuestions = () => {
     });
 
     const fetchInfo = async () => {
-        const response = await fetch('https://pharmaca-backend.vercel.app/allquestions');
+        const response = await fetch('https://pharmaca-demo-backend.onrender.com/allquestions');
         const data = await response.json();
         setAllQuestions(data);
     }
 
     const remove_question = async (id) => {
-        await fetch('https://pharmaca-backend.vercel.app/removequestion', {
+        await fetch('https://pharmaca-demo-backend.onrender.com/removequestion', {
             method: 'POST',
             headers: {
                 Accept: 'application/json',
@@ -33,7 +33,7 @@ const ListQuestions = () => {
     }
 
     const update_question = async (id) => {
-        await fetch(`https://pharmaca-backend.vercel.app/updatequestion/${id}`, {
+        await fetch(`https://pharmaca-demo-backend.onrender.com/updatequestion/${id}`, {
             method: 'POST', // You may use PUT if that's supported by your server.
             headers: {
                 Accept: 'application/json',

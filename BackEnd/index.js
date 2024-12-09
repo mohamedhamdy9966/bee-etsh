@@ -21,7 +21,7 @@ app.use(
     directives: {
       defaultSrc: ["'none'"],
       scriptSrc: ["'self'", "https://vercel.live"],
-      connectSrc: ["'self'", "https://pharmaca-backend.vercel.app"],
+      connectSrc: ["'self'", "https://pharmaca-demo-backend.onrender.com"],
     },
   })
 );
@@ -32,13 +32,14 @@ const blacklistedTokens = [];
 const allowedOrigins = [
   'https://pharmaca.vercel.app',
   'https://pharmaca-admin.vercel.app',
+  'https://pharmaca-demo-backend.onrender.com',
   'http://localhost:3000'
 ];
 
 app.use(express.json());
 
 app.use(cors({
-  origin: ["https://pharmaca.vercel.app", "http://localhost:3000"],
+  origin: ["https://pharmaca-demo-backend.onrender.com", "http://localhost:3000"],
   methods: ["POST", "GET"],
   allowedHeaders: ["Content-Type", "Authorization"],
   credentials: true
