@@ -9,7 +9,6 @@ const bcrypt = require("bcryptjs");
 const cors = require("cors");
 const path = require("path");
 const nodemailer = require('nodemailer');
-const helmet = require("helmet");
 
 const app = express();
 const port = process.env.PORT || 4000;
@@ -18,21 +17,12 @@ const blacklistedTokens = [];
 
 app.use(express.json());
 
-app.use(
-  helmet.contentSecurityPolicy({
-    directives: {
-      defaultSrc: ["'self'"],
-      scriptSrc: ["'self'", "https://vercel.app", "https://pharmaca.vercel.app"],
-      connectSrc: ["'self'", "https://pharmaca-demo-backend.onrender.com", "https://pharmaca.vercel.app"]
-    },
-  })
-);
-
 
 const allowedOrigins = [
   'https://pharmaca.vercel.app',
   'https://pharmaca-admin.vercel.app',
-  'http://localhost:3000'
+  'http://localhost:3000',
+  'https://pharmaca-frontend-demo.onrender.com'
 ];
 
 app.use(cors({
