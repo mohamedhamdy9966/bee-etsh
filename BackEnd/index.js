@@ -17,10 +17,11 @@ const blacklistedTokens = [];
 
 app.use(express.json());
 
+app.listen(port, () => {
+  console.log(`Server is running on port ${port}`);
+});
 
 const allowedOrigins = [
-  'https://pharmaca.vercel.app',
-  'https://pharmaca-admin.vercel.app',
   'http://localhost:3000',
   'https://pharmaca-frontend-demo.onrender.com'
 ];
